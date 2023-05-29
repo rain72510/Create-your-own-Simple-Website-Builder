@@ -1,0 +1,21 @@
+.Viewer {
+  position: absolute;
+  top: 10px;
+  left: 1110px;
+
+  box-sizing: border-box;
+  border: 1px solid black;
+  border-left-width: 0px;
+  /* background-color: white; */
+
+  width: 800px;
+  height: 800px;
+}
+
+
+
+iframe {
+	width: 800px;
+  height: 700px;
+	border: none;
+}

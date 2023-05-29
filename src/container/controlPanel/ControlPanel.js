@@ -35,6 +35,14 @@ const ControlPanel = () => {
 		<div className="ControlPanel">
 			<button
 				onClick={() => {
+					setCurrMode("Text");
+				}}
+			>
+				Text
+			</button>
+			
+			<button
+				onClick={() => {
 					writeToFile();
 				}}
 			>

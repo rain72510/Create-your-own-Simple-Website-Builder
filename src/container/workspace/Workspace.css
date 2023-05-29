@@ -1,4 +1,8 @@
 .Workspace {
+
+	--GridColumnNumber: 16;
+	--GridRowNumber: 16;
+
   position: absolute;
   top: 10px;
   left: 310px;
@@ -9,10 +13,21 @@
   /* background-color: white; */
 
   width: 800px;
-  height: 700px;
+  height: 800px;
 }
 
-iframe {
-	width: 800px;
-  height: 700px;
+.WorkspaceGridContainer {
+	display: grid;
+	grid-template-columns: repeat(var(--GridColumnNumber), 1fr);
+	grid-template-rows: repeat(var(--GridRowNumber), 1fr);
+
+  width: 800px;
+  height: 800px;
+}
+
+.WorkspaceGridItem {
+	border-style: dotted;
+	border-width: 1px;
+	grid-column: 3 / 6;
+	grid-row: 5 / 12;
 }
