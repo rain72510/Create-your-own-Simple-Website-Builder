@@ -1,15 +1,19 @@
 const express = require('express');
 const app = express();
+const fs = require("fs");
+const frontendPort = 3000;
+const backendPort = 8080;
+
 app.use(express.json());
 app.use((req, res, next) => {
-	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+	res.setHeader('Access-Control-Allow-Origin', `http://localhost:${frontendPort}`);
 	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
 	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 	res.setHeader('Access-Control-Max-Age', '86400'); // 預檢請求的快取時間（秒）
 	next();
 });
-const fs = require("fs");
-const port = 8080;
+
+
 var toFile = `
 <!DOCTYPE html>
 <html>
@@ -50,6 +54,6 @@ app.post('/api/generateHtml', (req, res) => {
 });
 
 
-app.listen(port, () => {
-	console.log(`Listen on ${port}`);
+app.listen(backendPort, () => {
+	console.log(`Listen on ${backendPort}`);
 })
