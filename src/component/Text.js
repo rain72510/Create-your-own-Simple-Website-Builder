@@ -3,14 +3,14 @@ import Component from "./Component";
 class Text extends Component {
 	constructor(props) {
 		super(props);
-		this.text = `aasa`;
+		console.log(props);
 	}
 
 	render() {
 		return (
-			<div style={this.style}>
+			<div>
 				<p>
-					{this.text}
+					{this.props.content.text}
 				</p>
 			</div>
 		)

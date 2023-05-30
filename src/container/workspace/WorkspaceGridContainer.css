@@ -1,8 +1,0 @@
-.WorkspaceGridContainer {
-	display: grid;
-	grid-template-columns: repeat(var(--GridColumnNumber), 1fr);
-	grid-template-rows: repeat(var(--GridRowNumber), 1fr);
-
-  width: 800px;
-  height: 800px;
-}

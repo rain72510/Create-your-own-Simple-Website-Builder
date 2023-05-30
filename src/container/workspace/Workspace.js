@@ -7,20 +7,13 @@ import Text from "../../component/Text";
 import "./Workspace.css"
 
 
-const WorkspaceGridItem = (props) => {
+const WorkspaceGridComponent = (props) => {
 
-	const Item = props.item;
+	// const component = props.component;
 
 	return (
-		<div style={{
-			gridColumn: "3 / 6",
-			gridRow: "5 / 12",
-			zIndex: "1",
-			background: "yellow",
-			padding: "20px",
-			margin: "60px"
-		}}>
-			<Item></Item>
+		<div style={props.outerStyle}>
+			<props.component style={props.innerStyle} content={props.content}></props.component>
 		</div>
 	)
 }
@@ -42,15 +35,23 @@ const WorkspaceGridBasic = (props) => {
 const WorkspaceGridContainer = () => {
 	const WorkspaceGridBasicColumn = Array(16).fill().map((_, ic) => {
 		return Array(16).fill().map((_, ir) => {
-			console.log({ic: ic, ir: ir});
+			// console.log({ic: ic, ir: ir});
 			return <WorkspaceGridBasic column={ic+1} row={ir+1} key={{ic: ic, ir: ir}}/>;
 		});
+	})
+
+	const {
+		components,
+	} = useContext(Context);
+
+	const componentsList = components.map((v, i) => {
+		return <WorkspaceGridComponent component={v.component} outerStyle={v.outerStyle} innerStyle={v.innerStyle} content={v.content} key={i}/>
 	})
 
 	return (
 		<div className="WorkspaceGridContainer">
 			{WorkspaceGridBasicColumn}
-			<WorkspaceGridItem item={Text}/>
+			{componentsList}
 		</div>
 	)
 }
@@ -60,9 +61,6 @@ const Workspace = (props) => {
 		currMode,
 		setCurrMode,
 	} = useContext(Context);
-
-	const Items = props.item;
-
 	
 
 	return (

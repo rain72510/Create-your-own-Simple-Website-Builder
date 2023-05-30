@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // context
 import Context from './context/Context';
@@ -15,37 +15,58 @@ import Text from './component/Text';
 function App() {
 	const [currMode, setCurrMode] = useState('');
 	
-	const [items, setItems] = useState({
-		"Item1": {
-			item: Text,
-			positions: {
+	const [components, setComponents] = useState([
+		{
+			component: Text,
+			outerStyle: {
 				gridColumnStart: 3,
 				gridColumnEnd: 6,
 				gridRowStart: 7,
 				gridRowEnd: 13,
+				zIndex: "1",
+				background: "yellow",
+				padding: "20px",
+				margin: "10px",
 			},
-			styles: {
+			innerStyle: {
 				color: "yellow",
-				backgroundColor: "greenyellow"
-			}
+				backgroundColor: "greenyellow",
+			},
+			content: {
+				text: "Happy Halloween",
+			},
 		},
+	]);
+
+	const [componentStyle, setComponentStyle] = useState({
+		gridColumnStart: 0,
+		gridColumnEnd: 0,
+		gridRowStart: 0,
+		gridRowEnd: 0,
 	});
 
-	// setComponents({
-	// 	"Item1": {
-	// 		item: Text,
-	// 		positions: {
-	// 			gridColumnStart: 3,
-	// 			gridColumnEnd: 6,
-	// 			gridRowStart: 7,
-	// 			gridRowEnd: 13,
-	// 		},
-	// 		styles: {
-	// 			color: "yellow",
-	// 			backgroundColor: "greenyellow"
-	// 		}
-	// 	},
-	// })
+
+	const createComponent = () => {
+		switch (currMode) {
+			case "Text":
+				setComponents([...components, {
+					component: Text,
+					outerStyle: componentStyle,
+					innerStyle: {
+						color: "yellow",
+						backgroundColor: "greenyellow",
+					},
+					content: {
+						text: "Happy Christmas",
+					},
+				}])
+				break;
+		}
+	}
+
+	useEffect(() => {
+		console.log(components);
+	}, [components])
 
 
   return (
@@ -54,10 +75,14 @@ function App() {
 				value={{
 					currMode: currMode,
 					setCurrMode: setCurrMode,
+					components: components,
+					componentStyle: componentStyle,
+					setComponentStyle: setComponentStyle,
+					createComponent: createComponent,
 				}}
 			>
 				<ControlPanel></ControlPanel>
-				<Workspace items={items}></Workspace>
+				<Workspace></Workspace>
 				<Viewer></Viewer>
 			</Context.Provider>
 		</React.Fragment>
