@@ -29,7 +29,6 @@ function App() {
 				margin: "10px",
 			},
 			innerStyle: {
-				color: "yellow",
 				backgroundColor: "greenyellow",
 			},
 			content: {
