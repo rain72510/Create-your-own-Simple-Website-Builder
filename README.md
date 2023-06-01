@@ -22,3 +22,4 @@ node v16.20.0
 - 增加選取功能、並可以調整選到的 component
 - 規劃 api 要傳什麼
 - 將 control panel 做得更完善
+
