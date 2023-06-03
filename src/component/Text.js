@@ -3,16 +3,14 @@ import Component from "./Component";
 class Text extends Component {
 	constructor(props) {
 		super(props);
-		console.log(props);
+		console.log("Text", props);
 	}
 
 	render() {
 		return (
-			<div>
-				<p>
-					{this.props.content.text}
-				</p>
-			</div>
+			<p style={this.props.innerStyle}>
+				{this.props.content.text}
+			</p>
 		)
 	}
 }

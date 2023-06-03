@@ -3,68 +3,77 @@ import Context from "../../context/Context";
 
 import "./ControlPanel.css";
 
-const Selection = (props) => {
+const NumberInput = (props) => {
 	return (
-		<select value={props.value} onChange={(e) => {
-			props.onChange(e.target.value)
-		}}>
-			{Array(props.number).fill().map((v, i) => {
-				return <option key={i} value={i+1}>{i+1}</option>
-			})}
-		</select>
+		<div>
+			<p>{props.name}</p>
+			<input
+				type="number"
+				value={props.value}
+				onChange={(e) => {props.onChange(e.target.value)}}
+				style={{
+					width: "50px",
+					height: "20px",
+				}}
+			>
+			</input>
+		</div>
 	)
 }
 
 const PositionInput = () => {
 	const {
-		componentStyle,
-		setComponentStyle,
+		outerStyle,
+		setOuterStyle,
+		currentSelectedId,
+		updateComponent,
 	} = useContext(Context);
-
-	// const [columnStart, setColumnstart] = useState(0);
 	return (
 		<div>
-			<p>column start</p>
-			<Selection
-				value={componentStyle.gridColumnStart}
-				onChange={(v) => {
-					setComponentStyle({...componentStyle, gridColumnStart: v});
-				}}
-				number={16}
-			></Selection>
-			<p>column end</p>
-			<Selection
-				value={componentStyle.gridColumnEnd}
-				onChange={(v) => {
-					setComponentStyle({...componentStyle, gridColumnEnd: v});
-				}}
-				number={16}
-			></Selection>
-			<p>row start</p>
-			<Selection
-				value={componentStyle.gridRowStart}
-				onChange={(v) => {
-					setComponentStyle({...componentStyle, gridRowStart: v});
-				}}
-				number={16}
-			></Selection>
-			<p>row end</p>
-			<Selection
-				value={componentStyle.gridRowEnd}
-				onChange={(v) => {
-					setComponentStyle({...componentStyle, gridRowEnd: v});
-				}}
-				number={16}
-			></Selection>
+			<NumberInput name="Width" value={parseFloat(outerStyle.width)} onChange={(v) => {
+				const currOuterStyle = outerStyle;
+				setOuterStyle({...currOuterStyle, width: `${v}px`})
+				if (currentSelectedId) {
+					updateComponent(currentSelectedId, {"outerStyle": {
+						...currOuterStyle, width: `${v}px`,
+					}});
+				}
+			}}/>
+			<NumberInput name="Height" value={parseFloat(outerStyle.height)} onChange={(v) => {
+				const currOuterStyle = outerStyle;
+				setOuterStyle({...currOuterStyle, height: `${v}px`})
+				if (currentSelectedId) {
+					updateComponent(currentSelectedId, {"outerStyle": {
+						...currOuterStyle, height: `${v}px`,
+					}});
+				}
+			}}/>
+			<NumberInput name="Top" value={parseFloat(outerStyle.top)} onChange={(v) => {
+				const currOuterStyle = outerStyle;
+				setOuterStyle({...currOuterStyle, top: `${v}px`})
+				if (currentSelectedId) {
+					updateComponent(currentSelectedId, {"outerStyle": {
+						...currOuterStyle, top: `${v}px`,
+					}});
+				}
+			}}/>
+			<NumberInput name="Left" value={parseFloat(outerStyle.left)} onChange={(v) => {
+				const currOuterStyle = outerStyle;
+				setOuterStyle({...currOuterStyle, left: `${v}px`})
+				if (currentSelectedId) {
+					updateComponent(currentSelectedId, {"outerStyle": {
+						...currOuterStyle, left: `${v}px`,
+					}});
+				}
+			}}/>
 		</div>
 	)
 }
 
 const ControlPanel = () => {
 	const {
-		currMode,
-		setCurrMode,
 		createComponent,
+		setComponent,
 	} = useContext(Context);
 
 	const writeToFile = () => {
@@ -93,7 +102,7 @@ const ControlPanel = () => {
 		<div className="ControlPanel">
 			<button
 				onClick={() => {
-					setCurrMode("Text");
+					setComponent("Text");
 				}}
 			>
 				Text
