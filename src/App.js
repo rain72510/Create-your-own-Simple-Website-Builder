@@ -17,22 +17,30 @@ function App() {
 	
 	const [components, setComponents] = useState([
 		{
-			component: Text,
-			outerStyle: {
-				gridColumnStart: 3,
-				gridColumnEnd: 6,
-				gridRowStart: 7,
-				gridRowEnd: 13,
-				zIndex: "1",
-				background: "yellow",
-				padding: "20px",
-				margin: "10px",
+			"component": "Text",
+			"outerStyle": {
+				"top": "20px",
+				"left": "30px",
+				"background-color": "#f0f",
 			},
-			innerStyle: {
-				backgroundColor: "greenyellow",
+			"innerStyle": {
+				"font-family": "'Courier New', Courier, monospace",
 			},
-			content: {
-				text: "Happy Halloween",
+			"content": {
+				"text": "Happy Halloween",
+			},
+		},
+		{
+			component: "Img",
+			"outerStyle": {
+				"top": "200px",
+				"left": "130px",
+			},
+			"innerStyle": {
+			},
+			"content": {
+				"src": "aa",
+				"alt": "fault",
 			},
 		},
 	]);
