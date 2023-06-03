@@ -3,6 +3,8 @@ import Context from "../../context/Context";
 
 import "./ControlPanel.css";
 
+let HTML_text = "";
+
 const Selection = (props) => {
 	return (
 		<select value={props.value} onChange={(e) => {
@@ -65,6 +67,7 @@ const ControlPanel = () => {
 		currMode,
 		setCurrMode,
 		createComponent,
+		createHtml,
 	} = useContext(Context);
 
 	const writeToFile = () => {
@@ -105,6 +108,13 @@ const ControlPanel = () => {
 				}}
 			>
 				writeToFile
+			</button>
+			<button
+				onClick={() => {
+					createHtml();
+				}}
+			>
+				HTML
 			</button>
 			<PositionInput/>
 			<button

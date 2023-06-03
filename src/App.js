@@ -1,5 +1,7 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
+import { Route, Routes } from "react-router-dom";
+
 
 // context
 import Context from './context/Context';
@@ -12,12 +14,17 @@ import Viewer from './container/viewer/Viewer';
 // component
 import Text from './component/Text';
 
+let HTML_text = "";
+const filePath = './test.html';
+const fs = require('fs');
+
+
 function App() {
 	const [currMode, setCurrMode] = useState('');
 	
 	const [components, setComponents] = useState([
 		{
-			"component": "Text",
+			"type": "Text",
 			"outerStyle": {
 				"top": "20px",
 				"left": "30px",
@@ -31,7 +38,7 @@ function App() {
 			},
 		},
 		{
-			component: "Img",
+			"type": "Img",
 			"outerStyle": {
 				"top": "200px",
 				"left": "130px",
@@ -39,7 +46,7 @@ function App() {
 			"innerStyle": {
 			},
 			"content": {
-				"src": "aa",
+				"src": "https://www.w3schools.com/images/w3schools_green.jpg",
 				"alt": "fault",
 			},
 		},
@@ -57,7 +64,7 @@ function App() {
 		switch (currMode) {
 			case "Text":
 				setComponents([...components, {
-					component: Text,
+					type: "Text",
 					outerStyle: componentStyle,
 					innerStyle: {
 						color: "yellow",
@@ -69,6 +76,46 @@ function App() {
 				}])
 				break;
 		}
+	}
+
+	function componentAttr(Attribute, x){
+		if (typeof(Attribute) !== 'string'){
+			for (let x in Attribute){
+				if(x !== "text" && x !== "src" && x !== "alt"){
+					HTML_text += x + '=' + Attribute[x] + '; ';
+				}
+			}
+		}
+		console.log(Attribute);
+	}
+
+	const createHtml = () => {
+		HTML_text = "<!DOCTYPE html><html><body>";
+		for (let x in components){
+			HTML_text += "<div>";
+			switch (components[x]["type"]) {
+				case "Text":
+					HTML_text += '<p style="';
+					break;
+				case "Img":
+					HTML_text += '<img style="';
+					break;
+			}
+			for (let y in components[x]){
+				componentAttr(components[x][y], x)
+			}
+			switch(components[x]["type"]) {
+				case "Text":
+					HTML_text += '">' + components[x]["content"]["text"] + "</p>";
+					break;
+				case "Img":
+					HTML_text += '" src="' + components[x]["content"]["src"] + '" alt="' + components[x]["content"]["alt"] + '">';
+					break;
+			}
+			HTML_text += "</div>"
+		}
+		HTML_text += "</body></html>";
+		console.log(HTML_text);
 	}
 
 	useEffect(() => {
@@ -86,8 +133,12 @@ function App() {
 					componentStyle: componentStyle,
 					setComponentStyle: setComponentStyle,
 					createComponent: createComponent,
+					createHtml: createHtml,
 				}}
 			>
+				<Routes>
+					<Route path='/test' element={HTML_text}/>
+				</Routes>
 				<ControlPanel></ControlPanel>
 				<Workspace></Workspace>
 				<Viewer></Viewer>

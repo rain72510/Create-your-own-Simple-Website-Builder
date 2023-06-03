@@ -15,21 +15,7 @@ app.use((req, res, next) => {
 
 
 var toFile = `
-<!DOCTYPE html>
-<html>
-	<head>
-    <meta charset="UTF-8" />
-		<link rel="stylesheet" href="./Page1.css" />
-    <meta name="viewport" content="width=device-width, user-scalable=no" />
-	</head>
-	<body>
-		<div style="background-color: yellowgreen;">
-			<p>
-				This is html2
-			</p>
-		</div>
-	</body>
-</html>
+<!DOCTYPE html><html><body><div><p style="top=20px; left=30px; background-color=#f0f; font-family='Courier New', Courier, monospace; ">Happy Halloween</p></div><div><img style="top=200px; left=130px; " src="https://www.w3schools.com/images/w3schools_green.jpg" alt="fault"></div></body></html>
 `
 
 // const CreateWriteFile = () => {

@@ -7,6 +7,7 @@ const Context = createContext({
 	componentStyle: {},
 	setComponentStyle: () => {},
 	createComponent: () => {},
+	createHtml: () => {},
 });
 
 export default Context;

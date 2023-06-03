@@ -45,7 +45,7 @@ const WorkspaceGridContainer = () => {
 	} = useContext(Context);
 
 	const componentsList = components.map((v, i) => {
-		return <WorkspaceGridComponent component={v.component} outerStyle={v.outerStyle} innerStyle={v.innerStyle} content={v.content} key={i}/>
+		return <WorkspaceGridComponent component={v.type} outerStyle={v.outerStyle} innerStyle={v.innerStyle} content={v.content} key={i}/>
 	})
 
 	return (
