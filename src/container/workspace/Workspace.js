@@ -1,71 +1,78 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Context from "../../context/Context";
 
 import Text from "../../component/Text";
 // import WorkspaceGridContainer from "./WorkspaceGridContainer";
 
-import "./Workspace.css"
+import "./Workspace.css";
 
 
-const WorkspaceGridComponent = (props) => {
-
-	// const component = props.component;
-
-	return (
-		<div style={props.outerStyle}>
-			<props.component style={props.innerStyle} content={props.content}></props.component>
-		</div>
-	)
-}
-
-const WorkspaceGridBasic = (props) => {
-	const style = {
-		borderStyle: "dotted",
-		borderWidth: "1px",
-		gridColumn: `${props.column} / ${props.column + 1}`,
-		gridRow: `${props.row} / ${props.row + 1}`,
-		zIndex: "0",
-	}
-	return (
-		<div style={style}>
-		</div>
-	)
-}
-
-const WorkspaceGridContainer = () => {
-	const WorkspaceGridBasicColumn = Array(16).fill().map((_, ic) => {
-		return Array(16).fill().map((_, ir) => {
-			// console.log({ic: ic, ir: ir});
-			return <WorkspaceGridBasic column={ic+1} row={ir+1} key={{ic: ic, ir: ir}}/>;
-		});
-	})
-
+const ComponentItem = (props) => {
 	const {
-		components,
+		currentSelectedId,
 	} = useContext(Context);
 
-	const componentsList = components.map((v, i) => {
-		return <WorkspaceGridComponent component={v.type} outerStyle={v.outerStyle} innerStyle={v.innerStyle} content={v.content} key={i}/>
-	})
+	var outerStyle = (currentSelectedId == props.id?
+		{...props.outerStyle, "box-shadow": "5px 5px",}:
+		props.outerStyle
+	)
 
 	return (
-		<div className="WorkspaceGridContainer">
-			{WorkspaceGridBasicColumn}
-			{componentsList}
+		<div style={outerStyle} onMouseDown={(e) => {
+			props.handleMouseDown(e, props.id);
+			e.stopPropagation();
+		}}>
+			<props.type content={props.content} innerStyle={props.innerStyle}/>
 		</div>
 	)
 }
 
 const Workspace = (props) => {
 	const {
-		currMode,
-		setCurrMode,
+		components,
+		setCurrentSelectedId,
 	} = useContext(Context);
-	
 
+	const [mouseDownPoint, setMouseDownPoint] = useState({
+    x: undefined,
+    y: undefined,
+  });
+  const [dragging, setDragging] = useState(false);
+
+	const handleMouseDown = (e, id) => {
+		// console.log(e.nativeEvent.clientX, e.nativeEvent.clientY);
+		console.log(e);
+		setCurrentSelectedId(id);
+	}
+
+	const handleMouseMove = (e) => {
+		if (dragging) {
+			console.log(e);
+		}
+	}
+
+	const componentsJSXList = components.map((v, i) => {
+		var type = Text;
+		switch (v.type) {
+			case "Text":
+				type = Text;
+				break;
+		}
+		return (
+			<ComponentItem
+				type={type}
+				content={v.content}
+				innerStyle={v.innerStyle}
+				outerStyle={v.outerStyle}
+				id={v.id}
+				handleMouseDown={handleMouseDown}
+			/>
+		)
+	})
 	return (
-		<div className="Workspace">
-			<WorkspaceGridContainer/>
+		<div id={"bg"} className="Workspace" onMouseDown={e => {console.log("In bg");handleMouseDown(e);}}>
+
+			{componentsJSXList}
 		</div>
 	)
 }
