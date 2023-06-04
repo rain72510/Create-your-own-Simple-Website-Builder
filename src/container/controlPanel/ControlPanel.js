@@ -45,7 +45,7 @@ const ColorInput = (props) => {
 		props.onChange(color);
 	}, [color])
 
-	console.log("color in ColorInput: ", color);
+	//console.log("color in ColorInput: ", color);
 	return (
 		<div style={{ marginTop: "15px"}}>
 			<p style={{paddingLeft: "3px", width: "auto", fontSize: "18px", color: "rgb(43, 62, 99)"}}>{props.name}</p>
@@ -204,8 +204,8 @@ const TextColorInput = () => {
 		updateComponent,
 	} = useContext(Context);
 	
-	console.log('innerStyle in TextColorInput: ', innerStyle);
-	console.log('innerStyle.color in TextColorInput: ', innerStyle.color);
+	//console.log('innerStyle in TextColorInput: ', innerStyle);
+	//console.log('innerStyle.color in TextColorInput: ', innerStyle.color);
 	return (
 		<div>
 			<ColorInput
@@ -649,6 +649,7 @@ const ControlPanel = () => {
 					onClick={() => {
 						createHtml();
 					}}
+					startIcon={<FileUploadIcon />}
 				>
 					HTML
 				</Button>
@@ -661,8 +662,7 @@ const ControlPanel = () => {
 					onClick={() => {
 						writeToFile();
 					}}
-					startIcon={<FileUploadIcon />}
-				>Export</Button>
+				>Preview</Button>
 			</ButtonGroup>
 			<OuterStyleInput/>
 			<InnerStyleInput/>

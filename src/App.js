@@ -92,7 +92,7 @@ function App() {
 	});
 	const [textContent, setTextContent] = useState({"text": "aaaa",});
 	const [imgContent, setImgContent] = useState({});
-	const [idCnt, setIdCnt] = useState(3);
+	const [idCnt, setIdCnt] = useState(2);
 	const [currentSelectedId, setCurrentSelectedId] = useState(null);
 
 	const [currentPoint, setCurrentPoint] = useState({
