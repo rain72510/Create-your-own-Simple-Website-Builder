@@ -17,18 +17,18 @@ const ACCESS_KEY="9ZM61M-0xPrLVshNpTEQpvm2ekEgqkP1avxAsD3xCTA";
 
 const NumberInput = (props) => {
 	return (
-		<div>
+		<div style={{ paddingTop: "20px"}}>
 			<p>{props.name}</p>
-			<input
+			<TextField
 				type="number"
 				value={props.value}
 				onChange={(e) => {props.onChange(e.target.value)}}
 				style={{
-					width: "50px",
+					width: "60px",
 					height: "20px",
-				}}
-			>
-			</input>
+					position: "static",
+					marginRight: "10px"
+				}}/>
 		</div>
 	)
 }
@@ -42,7 +42,7 @@ const ColorInput = (props) => {
 
 	console.log("color in ColorInput: ", color);
 	return (
-		<div>
+		<div style={{ marginTop: "15px"}}>
 			<p>{props.name}</p>
 			<div style={{display: "flex", flexDirection: "row"}}>
 				<input
@@ -99,7 +99,7 @@ const OuterStylePositionInput = () => {
 	} = useContext(Context);
 	return (
 		<div className="OuterStylePositionInput">
-			<TextField name="Width" value={parseFloat(outerStyle.width)} size="small" onChange={(v) => {
+			<NumberInput name="Width" value={parseFloat(outerStyle.width)} size="small" onChange={(v) => {
 				const currOuterStyle = outerStyle;
 				setOuterStyle({...currOuterStyle, width: `${v}px`})
 				if (currentSelectedId) {
@@ -147,7 +147,7 @@ const BackgroundColorInput = () => {
 		updateComponent,
 	} = useContext(Context);
 	return (
-		<div>
+		<div style={{ paddingTop: "20px"}}>
 			<ColorInput
 				name="Background Color"
 				value={outerStyle["background-color"]}
@@ -173,7 +173,7 @@ const TextFontSize = () => {
 	} = useContext(Context);
 	
 	return (
-		<div>
+		<div style={{ paddingTop: "20px"}}>
 			<NumberInput name="Font Size" value={parseFloat(innerStyle["font-size"])} onChange={(v) => {
 				const currInnerStyle = innerStyle;
 				setInnerStyle({...currInnerStyle, "font-size": `${v}px`})
@@ -198,7 +198,7 @@ const TextColorInput = () => {
 	console.log('innerStyle in TextColorInput: ', innerStyle);
 	console.log('innerStyle.color in TextColorInput: ', innerStyle.color);
 	return (
-		<div>
+		<div style={{ paddingTop: "20px"}}>
 			<ColorInput
 				name="Text Color"
 				value={innerStyle.color}
@@ -272,7 +272,7 @@ const TextContent = () => {
 		updateComponent
 	} = useContext(Context);
 	return (
-		<div>
+		<div style={{ paddingTop: "20px"}}>
 			<p>Text Content</p>
 			<textarea
 				value={textContent.text}
@@ -649,13 +649,13 @@ const ControlPanel = () => {
 			<OuterStyleInput/>
 			<InnerStyleInput/>
 			{customPanel}
-			<ButtonGroup>
+			<ButtonGroup >
 			<Button
 				variant = "contained"
 				onClick={() => {
 					createComponent();
 				}}
-				sx = {{backgroundColor: "rgb(43, 62, 99)",marginTop : "10px"}}
+				sx = {{backgroundColor: "rgb(43, 62, 99)", marginTop : "10px"}}
 			>
 				Create!
 			</Button>
@@ -675,7 +675,7 @@ const ControlPanel = () => {
 			</Button>
 			</ButtonGroup>
 
-			<div className="showCoordinate flexbox" style={{gap: "20px", width: "300px", justifyContent: "center"}}>
+			<div className="showCoordinate flexbox" style={{position: "static", gap: "20px", width: "300px", justifyContent: "center"}}>
 				<div style={{display: "flex", flexDirection: "column"}}>
 					<p style={{margin: "0"}}> current:</p>
 					<p style={{margin: "0"}}> ({currentPoint.x}, {currentPoint.y})</p>
