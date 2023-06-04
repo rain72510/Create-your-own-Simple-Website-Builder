@@ -15,10 +15,6 @@ const ComponentItem = (props) => {
 		currentSelectedId,
 	} = useContext(Context);
 
-	console.log("currentSelectedId: ", currentSelectedId, " props.id: ", props.id);
-	console.log("currentSelectedId === props.id", currentSelectedId === props.id);
-	console.log("typeof(currentSelectedId), typeof(props.id):", typeof(currentSelectedId), typeof(props.id))
-
 	var outerStyle = (currentSelectedId == props.id?
 		{...props.outerStyle, "box-shadow": "5px 5px",}:
 		props.outerStyle
@@ -143,14 +139,13 @@ const Workspace = () => {
 	return (
 		<div id={"bg"} className="Workspace"
 			onMouseDown={e => {
-				// console.log("In bg");
+				console.log("In bg");
 				handleMouseDown(e, e.target.id);
-				// console.log('e.target.id: ', e.target.id);
+				console.log('e.target.id: ', e.target.id);
 			}}
 			onMouseMove={e => {handleMouseMove(e)}}
 			onMouseUp={e => {handleMouseUp(e)}}
 		>
-
 			{componentsJSXList}
 		</div>
 	)

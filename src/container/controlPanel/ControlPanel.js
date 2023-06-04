@@ -15,6 +15,9 @@ import "./ImgSearch.css";
 
 const ACCESS_KEY="9ZM61M-0xPrLVshNpTEQpvm2ekEgqkP1avxAsD3xCTA";
 
+let TOP = 0;
+let LEFT = 0;
+
 const NumberInput = (props) => {
 	return (
 		<div>
@@ -42,7 +45,7 @@ const ColorInput = (props) => {
 		props.onChange(color);
 	}, [color])
 
-	console.log("color in ColorInput: ", color);
+	//console.log("color in ColorInput: ", color);
 	return (
 		<div style={{ marginTop: "15px"}}>
 			<p style={{paddingLeft: "3px", width: "auto", fontSize: "18px", color: "rgb(43, 62, 99)"}}>{props.name}</p>
@@ -67,7 +70,7 @@ const ColorInput = (props) => {
 					}}
 				/>
 				<Button variant = "contained"
-					onClick={(e) => setShowColorPicker(!showColorPicker)}
+					onClick={(e) => {setShowColorPicker(!showColorPicker) ;TOP=e.clientY;LEFT=e.clientX}}
 					style={{
 						height: "25px",
 						minWidth: "25px",
@@ -86,8 +89,8 @@ const ColorInput = (props) => {
 						// initColor={color}
 						color={color}
 						position={{
-							left: "100px",
-							top: "400px",
+							left: LEFT + 10 + "px",
+							top: TOP - 40 + "px",
 						}}
 					/>
 				}
@@ -201,8 +204,8 @@ const TextColorInput = () => {
 		updateComponent,
 	} = useContext(Context);
 	
-	console.log('innerStyle in TextColorInput: ', innerStyle);
-	console.log('innerStyle.color in TextColorInput: ', innerStyle.color);
+	//console.log('innerStyle in TextColorInput: ', innerStyle);
+	//console.log('innerStyle.color in TextColorInput: ', innerStyle.color);
 	return (
 		<div>
 			<ColorInput
@@ -646,6 +649,7 @@ const ControlPanel = () => {
 					onClick={() => {
 						createHtml();
 					}}
+					startIcon={<FileUploadIcon />}
 				>
 					HTML
 				</Button>
@@ -658,9 +662,8 @@ const ControlPanel = () => {
 					onClick={() => {
 						writeToFile();
 					}}
-					startIcon={<FileUploadIcon />}
-				>Export</Button>
-			</ButtonGroup>
+					>Preview</Button>
+				</ButtonGroup>
 			<OuterStyleInput/>
 			<InnerStyleInput/>
 			{customPanel}

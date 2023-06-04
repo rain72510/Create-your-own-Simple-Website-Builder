@@ -32,7 +32,7 @@ function App() {
 				"position": "absolute",
 				"top": "20px",
 				"left": "30px",
-				"background-color": "#f0f",
+				"background-color": "rgb(43, 62, 99)",
 				"height": "60px", // added
 				"width": "100px", // added
 				"overflow-x": "hidden", // added
@@ -92,7 +92,7 @@ function App() {
 	});
 	const [textContent, setTextContent] = useState({"text": "aaaa",});
 	const [imgContent, setImgContent] = useState({});
-	const [idCnt, setIdCnt] = useState(3);
+	const [idCnt, setIdCnt] = useState(2);
 	const [currentSelectedId, setCurrentSelectedId] = useState(null);
 
 	const [currentPoint, setCurrentPoint] = useState({
