@@ -6,6 +6,7 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
 import ImageIcon from '@mui/icons-material/Image';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
+import TextField from '@mui/material/TextField';
 
 import ColorPicker from "./ColorPicker";
 
@@ -98,7 +99,7 @@ const OuterStylePositionInput = () => {
 	} = useContext(Context);
 	return (
 		<div className="OuterStylePositionInput">
-			<NumberInput name="Width" value={parseFloat(outerStyle.width)} onChange={(v) => {
+			<TextField name="Width" value={parseFloat(outerStyle.width)} size="small" onChange={(v) => {
 				const currOuterStyle = outerStyle;
 				setOuterStyle({...currOuterStyle, width: `${v}px`})
 				if (currentSelectedId) {
@@ -603,8 +604,9 @@ const ControlPanel = () => {
 
 	return (
 		<div className="ControlPanel">
-			<ButtonGroup variant="contained" sx={{margin : "10px", color : "rgb(43, 62, 99)"}}>
+			<ButtonGroup variant="contained" sx = {{ borderColor : 'rgb(43, 62, 99)', "z-index" : "relative" }}>
 				<Button
+					sx = {{backgroundColor : 'rgb(43, 62, 99)',}}
 					onClick={() => {
 						setType("Text");
 					}}
@@ -612,6 +614,7 @@ const ControlPanel = () => {
 				>Text</Button>
 
 				<Button
+					sx = {{backgroundColor : 'rgb(43, 62, 99)'}}
 					onClick={() => {
 						setType("Img");
 					}}
@@ -619,42 +622,58 @@ const ControlPanel = () => {
 				>Image</Button>
 			</ButtonGroup>
 
-			<ButtonGroup variant="contained" color="secondary" sx={{margin :"10px", paddingTop : "5px"}}>
+			<ButtonGroup variant="contained" sx={{marginTop : "10px"}}>
 				<Button
-					onClick={() => {
-						writeToFile();
-					}}
-					startIcon={<FileUploadIcon />}
-				>Export</Button>
-
-				<Button
+					sx = {{backgroundColor : "#53acff", ":hover": {
+						bgcolor: "#a3d3ff",
+						color: "white"
+					  }}}
 					onClick={() => {
 						createHtml();
 					}}
 				>
 					HTML
 				</Button>
+
+				<Button
+					sx = {{backgroundColor : "#53acff", ":hover": {
+						bgcolor: "#a3d3ff",
+						color: "white"
+					  }}}
+					onClick={() => {
+						writeToFile();
+					}}
+					startIcon={<FileUploadIcon />}
+				>Export</Button>
 			</ButtonGroup>
 			<OuterStyleInput/>
 			<InnerStyleInput/>
 			{customPanel}
-
-			<Button variant = "contained"
+			<ButtonGroup>
+			<Button
+				variant = "contained"
 				onClick={() => {
 					createComponent();
 				}}
+				sx = {{backgroundColor: "rgb(43, 62, 99)",marginTop : "10px"}}
 			>
 				Create!
 			</Button>
-			<Button variant = "contained"
+			<Button
+				variant = "contained"
 				onClick={() => {
 					if (currentSelectedId !== 'bg') {
 						deleteComponent(currentSelectedId);
 					}
 				}}
+				sx = {{backgroundColor : '#ac0000', marginTop : "10px", ":hover": {
+					bgcolor: "#ef3c3c",
+					color: "white"
+				  }}}
 			>
 				Delete!
 			</Button>
+			</ButtonGroup>
 
 			<div className="showCoordinate flexbox" style={{gap: "20px", width: "300px", justifyContent: "center"}}>
 				<div style={{display: "flex", flexDirection: "column"}}>

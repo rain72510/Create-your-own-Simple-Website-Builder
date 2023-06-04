@@ -8,8 +8,7 @@
   left: 300px;
 
   box-sizing: border-box;
-  border: 1px solid black;
-  border-top-width: 0px;
+  border-right: 1px solid rgb(170, 170, 170);
   /* background-color: white; */
 
   width: 800px;
