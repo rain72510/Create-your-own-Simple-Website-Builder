@@ -12,7 +12,7 @@ class Img extends Component {
 				style={this.props.innerStyle}
 				id={this.props.id}
 				onClick={() => {
-					console.log(this.props.innerStyle) 
+					// console.log(this.props.innerStyle) 
 				}}
 				draggable="false"
 				src={this.props.content.src}

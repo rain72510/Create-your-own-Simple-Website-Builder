@@ -19,7 +19,6 @@ const ComponentItem = (props) => {
 		{...props.outerStyle, "box-shadow": "5px 5px",}:
 		props.outerStyle
 	)
-	// console.log(outerStyle);
 
 	return (
 		<div
@@ -41,6 +40,7 @@ const Workspace = () => {
 		updateComponent,
 		getComponentFromId,
 		setCurrentPoint,
+		setPreviousPoint,
 	} = useContext(Context);
 
 	const [mouseDownPoint, setMouseDownPoint] = useState({
@@ -56,7 +56,10 @@ const Workspace = () => {
   const [dragging, setDragging] = useState(false);
 
 	const handleMouseDown = (e, id) => {
-		// console.log(e);
+		setPreviousPoint({
+			x: e.nativeEvent.clientX - workspaceX,
+			y: e.nativeEvent.clientY - workspaceY,
+		})
 		setCurrentSelectedId(id);
 		setDragging(true);
 		setMouseDownPoint({
@@ -64,9 +67,7 @@ const Workspace = () => {
 			y: e.nativeEvent.clientY - workspaceY,
 		});
 		const component = getComponentFromId(id);
-		console.log('component: ', component);
 		if (id === 'bg') {
-			// console.log("click bg")
 			setOuterStyle({
 				...outerStyle,
 				left: `${e.nativeEvent.clientX - workspaceX}px`,
@@ -111,9 +112,6 @@ const Workspace = () => {
 	}
 
 	const handleMouseUp = (e) => {
-		// console.log(e.nativeEvent.clientX, e.nativeEvent.clientY);
-		// console.log(e);
-		// setCurrentSelectedId(id);
 		setDragging(false);
 	}
 
