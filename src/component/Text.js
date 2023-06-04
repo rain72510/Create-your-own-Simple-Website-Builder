@@ -8,7 +8,9 @@ class Text extends Component {
 
 	render() {
 		return (
-			<p style={this.props.innerStyle} id={this.props.id}>
+			<p style={this.props.innerStyle} id={this.props.id} onClick={() => {
+				console.log(this.props.innerStyle)
+			}}>
 				{this.props.content.text}
 			</p>
 		)
