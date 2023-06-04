@@ -148,7 +148,7 @@ function App() {
 		if (typeof(Attribute) !== 'string'){
 			for (let x in Attribute){
 				if(x !== "text" && x !== "src" && x !== "alt"){
-					HTML_text += x + '=' + Attribute[x] + '; ';
+					HTML_text += x + ':' + Attribute[x] + '; ';
 				}
 			}
 		}
