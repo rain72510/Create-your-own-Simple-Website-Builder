@@ -15,6 +15,9 @@ import "./ImgSearch.css";
 
 const ACCESS_KEY="9ZM61M-0xPrLVshNpTEQpvm2ekEgqkP1avxAsD3xCTA";
 
+let TOP = 0;
+let LEFT = 0;
+
 const NumberInput = (props) => {
 	return (
 		<div>
@@ -67,7 +70,7 @@ const ColorInput = (props) => {
 					}}
 				/>
 				<Button variant = "contained"
-					onClick={(e) => setShowColorPicker(!showColorPicker)}
+					onClick={(e) => {setShowColorPicker(!showColorPicker) ;TOP=e.clientY;LEFT=e.clientX}}
 					style={{
 						height: "25px",
 						minWidth: "25px",
@@ -86,8 +89,8 @@ const ColorInput = (props) => {
 						// initColor={color}
 						color={color}
 						position={{
-							left: "100px",
-							top: "400px",
+							left: LEFT + 10 + "px",
+							top: TOP - 40 + "px",
 						}}
 					/>
 				}

@@ -12,7 +12,7 @@ const ColorPicker = (props) => {
 	return (
 		<div
 			style={{
-				marginLeft: "20px", position: "absolute",
+				position: "absolute",
 				top: props.position.top, left: props.position.left
 			}}
 		>

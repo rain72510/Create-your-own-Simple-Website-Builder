@@ -146,7 +146,6 @@ const Workspace = () => {
 			onMouseMove={e => {handleMouseMove(e)}}
 			onMouseUp={e => {handleMouseUp(e)}}
 		>
-
 			{componentsJSXList}
 		</div>
 	)
