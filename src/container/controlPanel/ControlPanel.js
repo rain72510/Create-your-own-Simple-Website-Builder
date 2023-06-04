@@ -29,7 +29,7 @@ const NumberInput = (props) => {
 				onChange={(e) => {props.onChange(e.target.value)}}
 				style={{
 					backgroundColor: "white",
-					width: "60px",
+					width: "80px",
 					height: "auto",
 					position: "static",
 					marginRight: "10px"
@@ -107,7 +107,7 @@ const OuterStylePositionInput = () => {
 		updateComponent,
 	} = useContext(Context);
 	return (
-		<div className="OuterStylePositionInput">
+		<div className="OuterStylePositionInput" style={{columnGap:"50px"}}>
 			<NumberInput name="Width" value={parseFloat(outerStyle.width)} size="small" onChange={(v) => {
 				const currOuterStyle = outerStyle;
 				setOuterStyle({...currOuterStyle, width: `${v}px`})
