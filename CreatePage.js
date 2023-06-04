@@ -14,9 +14,9 @@ app.use((req, res, next) => {
 });
 
 
-var toFile = `
-<!DOCTYPE html><html><body><div><p style="position:absolute; top:274px; left:293px; background-color:#f0f; height:60px; width:100px; font-family:'Courier New', Courier, monospace; margin:0px; font-size:larger; color:red; ">Happy Halloween</p></div><div><img style="top:200px; left:130px; " src="https://www.w3schools.com/images/w3schools_green.jpg" alt="fault"></div><div><p style="position:absolute; top:119px; left:115px; background-color:#f0f; height:60px; width:100px; font-family:'Courier New', Courier, monospace; margin:0px; font-size:larger; color:red; ">Happy Halloween</p></div><div><p style="position:absolute; top:138px; left:261px; background-color:#f0f; height:60px; width:100px; font-family:'Courier New', Courier, monospace; margin:0px; font-size:larger; color:red; ">Happy Halloween</p></div><div><p style="position:absolute; top:364px; left:89px; background-color:#f0f; height:60px; width:100px; font-family:'Courier New', Courier, monospace; margin:0px; font-size:larger; color:red; ">Happy Halloween</p></div></body></html>
-`
+// var toFile = `
+// <!DOCTYPE html><html><body><div><p style="position:absolute; top:274px; left:293px; background-color:#f0f; height:60px; width:100px; font-family:'Courier New', Courier, monospace; margin:0px; font-size:larger; color:red; ">Happy Halloween</p></div><div><img style="top:200px; left:130px; " src="https://www.w3schools.com/images/w3schools_green.jpg" alt="fault"></div><div><p style="position:absolute; top:119px; left:115px; background-color:#f0f; height:60px; width:100px; font-family:'Courier New', Courier, monospace; margin:0px; font-size:larger; color:red; ">Happy Halloween</p></div><div><p style="position:absolute; top:138px; left:261px; background-color:#f0f; height:60px; width:100px; font-family:'Courier New', Courier, monospace; margin:0px; font-size:larger; color:red; ">Happy Halloween</p></div><div><p style="position:absolute; top:364px; left:89px; background-color:#f0f; height:60px; width:100px; font-family:'Courier New', Courier, monospace; margin:0px; font-size:larger; color:red; ">Happy Halloween</p></div></body></html>
+// `
 
 // const CreateWriteFile = () => {
 
@@ -25,7 +25,9 @@ var toFile = `
 app.post('/api/generateHtml', (req, res) => {
 	console.log("Receive call: generateHtml");
 	const id = req.body.id;
-	console.log(id)
+	const toFile = req.body.HTMLText;
+	console.log(id);
+	console.log(toFile);
 	fs.writeFile(
 		`./public/iframe/Page${id}.html`,
 		toFile,

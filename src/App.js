@@ -13,8 +13,6 @@ import Workspace from './container/workspace/Workspace';
 import Viewer from './container/viewer/Viewer';
 import Header from './container/header/Header';
 
-// component
-import Text from './component/Text';
 
 let HTML_text = "";
 const filePath = './test.html';
@@ -22,7 +20,9 @@ const fs = require('fs');
 
 
 function App() {
-	// const [currMode, setCurrMode] = useState('');
+
+	const [htmlFileCount, setHtmlFileCount] = useState(12);
+	const [HTMLText, setHTMLText] = useState("");
 	
 	const [components, setComponents] = useState([
 		{	
@@ -41,7 +41,7 @@ function App() {
 			"innerStyle": {
 				"font-family": "'Courier New', Courier, monospace",
 				"margin": "0px", // added
-				"font-size": "larger", // added
+				"font-size": "14", // added
 				"color": "#f00", // added
 				"height": "60px", // added
 				"width": "100px", // added
@@ -86,7 +86,9 @@ function App() {
 		"width": "300px", // added
 		"margin-left": "0px",
 		"margin-top": "0px",
-		"color": "#fff", // added
+		// "color": "#f00", // added
+		"color": "#000", // added
+		"font-size": "14", // added
 	});
 	const [textContent, setTextContent] = useState({"text": "aaaa",});
 	const [imgContent, setImgContent] = useState({});
@@ -224,6 +226,7 @@ function App() {
 			HTML_text += "</div>"
 		}
 		HTML_text += "</body></html>";
+		setHTMLText(HTML_text);
 		// console.log(HTML_text);
 	}
 
@@ -240,10 +243,12 @@ function App() {
 				}
 				setType(`${v.type}`);
 				setOuterStyle(v.outerStyle);
+				console.log(v.innerStyle);
 				setInnerStyle(v.innerStyle);
 				break;
 			}
 		}
+		console.log('innerStyle: ', innerStyle);
 	}, [currentSelectedId])
 
 	useEffect(() => {
@@ -285,6 +290,9 @@ function App() {
 					setDelta: setDelta,
 
 					deleteComponent: deleteComponent,
+					htmlFileCount: htmlFileCount,
+					setHtmlFileCount: setHtmlFileCount,
+					HTMLText: HTMLText
 				}}
 			>
 				{/* <Routes>

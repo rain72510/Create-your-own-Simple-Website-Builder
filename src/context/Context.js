@@ -25,6 +25,11 @@ const Context = createContext({
 	setCurrentPoint: () => {},
 
 	deleteComponent: () => {},
+	HTML_text: "",
+	htmlFileCount: 0,
+	setHtmlFileCount: () => {},
+
+	HTMLText: "",
 });
 
 export default Context;

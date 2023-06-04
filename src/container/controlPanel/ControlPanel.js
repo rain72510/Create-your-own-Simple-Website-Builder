@@ -35,11 +35,11 @@ const NumberInput = (props) => {
 const ColorInput = (props) => {
 	const [color, setColor] = useState(props.value);
 	const [showColorPicker, setShowColorPicker] = useState(false);
-
 	useEffect(() => {
 		props.onChange(color);
 	}, [color])
 
+	console.log("color in ColorInput: ", color);
 	return (
 		<div>
 			<p>{props.name}</p>
@@ -163,6 +163,29 @@ const BackgroundColorInput = () => {
 	)
 }
 
+const TextFontSize = () => {
+	const {
+		innerStyle,
+		setInnerStyle,
+		updateComponent,
+		currentSelectedId,
+	} = useContext(Context);
+	
+	return (
+		<div>
+			<NumberInput name="Font Size" value={parseFloat(innerStyle["font-size"])} onChange={(v) => {
+				const currInnerStyle = innerStyle;
+				setInnerStyle({...currInnerStyle, "font-size": `${v}px`})
+				if (currentSelectedId) {
+					updateComponent(currentSelectedId, {"innerStyle": {
+						...currInnerStyle, "font-size": `${v}px`,
+					}});
+				}
+			}}/>
+		</div>
+	)
+}
+
 const TextColorInput = () => {
 	const {
 		innerStyle,
@@ -170,11 +193,14 @@ const TextColorInput = () => {
 		currentSelectedId,
 		updateComponent,
 	} = useContext(Context);
+	
+	console.log('innerStyle in TextColorInput: ', innerStyle);
+	console.log('innerStyle.color in TextColorInput: ', innerStyle.color);
 	return (
 		<div>
 			<ColorInput
 				name="Text Color"
-				value={innerStyle["color"]}
+				value={innerStyle.color}
 				onChange={(v) => {
 					const currInnerStyle = innerStyle;
 					setInnerStyle({...currInnerStyle, "color": `${v}`})
@@ -271,6 +297,7 @@ const TextContent = () => {
 const TextPanel = () => {
 	return (
 		<div>
+			<TextFontSize/>
 			<TextContent/>
 			<TextColorInput/>
 		</div>
@@ -436,8 +463,6 @@ const ImgPanel = () => {
 	const {
 		imgContent,
 		setImgContent,
-		currentSelectedId,
-		updateComponent,
 		innerStyle,
 		setInnerStyle,
 		outerStyle,
@@ -533,6 +558,9 @@ const ControlPanel = () => {
 		delta,
 		currentSelectedId,
 		deleteComponent,
+		HTMLText,
+		htmlFileCount,
+		setHtmlFileCount,
 	} = useContext(Context);
 
 	const writeToFile = () => {
@@ -542,12 +570,14 @@ const ControlPanel = () => {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
-				id: 2,
+				id: htmlFileCount,
+				HTMLText: HTMLText,
 			})
 		})
 		.then((res) => {
 			if (res.ok) {
 				console.log('Success');
+				setHtmlFileCount(htmlFileCount + 1);
 			} else {
 				console.error('Receive error')
 			}
