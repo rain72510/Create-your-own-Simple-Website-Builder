@@ -32,7 +32,7 @@ function App() {
 				"position": "absolute",
 				"top": "20px",
 				"left": "30px",
-				"background-color": "#f0f",
+				"background-color": "rgb(43, 62, 99)",
 				"height": "60px", // added
 				"width": "100px", // added
 				"overflow-x": "hidden", // added
@@ -41,8 +41,8 @@ function App() {
 			"innerStyle": {
 				"font-family": "'Courier New', Courier, monospace",
 				"margin": "0px", // added
-				"font-size": "14", // added
-				"color": "#f00", // added
+				"font-size": "16", // added
+				"color": "#53acff", // added
 				"height": "60px", // added
 				"width": "100px", // added
 				"margin-left": "0px",
