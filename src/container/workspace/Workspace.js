@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Context from "../../context/Context";
 
 import Text from "../../component/Text";
+import Img from "../../component/Img";
 // import WorkspaceGridContainer from "./WorkspaceGridContainer";
 
 import "./Workspace.css";
@@ -24,10 +25,6 @@ const ComponentItem = (props) => {
 		<div
 			style={outerStyle}
 			id={props.id}
-			// onMouseDown={(e) => {
-			// 	props.handleMouseDown(e, props.id);
-			// 	e.stopPropagation();
-			// }}
 		>
 			<props.type content={props.content} innerStyle={props.innerStyle} id={props.id}/>
 		</div>
@@ -59,7 +56,7 @@ const Workspace = () => {
   const [dragging, setDragging] = useState(false);
 
 	const handleMouseDown = (e, id) => {
-		console.log(e);
+		// console.log(e);
 		setCurrentSelectedId(id);
 		setDragging(true);
 		setMouseDownPoint({
@@ -67,8 +64,9 @@ const Workspace = () => {
 			y: e.nativeEvent.clientY - workspaceY,
 		});
 		const component = getComponentFromId(id);
+		console.log('component: ', component);
 		if (id === 'bg') {
-			console.log("click bg")
+			// console.log("click bg")
 			setOuterStyle({
 				...outerStyle,
 				left: `${e.nativeEvent.clientX - workspaceX}px`,
@@ -93,11 +91,11 @@ const Workspace = () => {
 				const currOuterStyle = outerStyle;
 				const component = getComponentFromId(currentSelectedId);
 				const componentOuterStyle = component.outerStyle;
-				console.log("e.nativeEvent.offset: ", e.nativeEvent.offsetX, e.nativeEvent.offsetY);
-				console.log("mouseDownPoint: ", mouseDownPoint.x, mouseDownPoint.y);
+				// console.log("e.nativeEvent.offset: ", e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+				// console.log("mouseDownPoint: ", mouseDownPoint.x, mouseDownPoint.y);
 				const deltaX = e.nativeEvent.clientX - workspaceX - mouseDownPoint.x;
 				const deltaY = e.nativeEvent.clientY - workspaceY - mouseDownPoint.y;
-				console.log("deltaX: ", deltaX, "parseFloat(currOuterStyle.left): ", parseFloat(currOuterStyle.left))
+				// console.log("deltaX: ", deltaX, "parseFloat(currOuterStyle.left): ", parseFloat(currOuterStyle.left))
 				setOuterStyle({
 					...currOuterStyle,
 					left: `${deltaX + parseFloat(initPoint.x)}px`,
@@ -114,7 +112,7 @@ const Workspace = () => {
 
 	const handleMouseUp = (e) => {
 		// console.log(e.nativeEvent.clientX, e.nativeEvent.clientY);
-		console.log(e);
+		// console.log(e);
 		// setCurrentSelectedId(id);
 		setDragging(false);
 	}
@@ -124,6 +122,9 @@ const Workspace = () => {
 		switch (v.type) {
 			case "Text":
 				type = Text;
+				break;
+			case "Img":
+				type = Img;
 				break;
 		}
 		return (
@@ -140,9 +141,9 @@ const Workspace = () => {
 	return (
 		<div id={"bg"} className="Workspace"
 			onMouseDown={e => {
-				console.log("In bg");
+				// console.log("In bg");
 				handleMouseDown(e, e.target.id);
-				console.log('e.target.id: ', e.target.id);
+				// console.log('e.target.id: ', e.target.id);
 			}}
 			onMouseMove={e => {handleMouseMove(e)}}
 			onMouseUp={e => {handleMouseUp(e)}}

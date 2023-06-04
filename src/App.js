@@ -35,31 +35,39 @@ function App() {
 				"background-color": "#f0f",
 				"height": "60px", // added
 				"width": "100px", // added
+				"overflow-x": "hidden", // added
+				"overflow-y": "hidden", // added
+				"padding-left": "10px",
+				"padding-top": "10px",
 			},
 			"innerStyle": {
 				"font-family": "'Courier New', Courier, monospace",
 				"margin": "0px", // added
 				"font-size": "larger", // added
-				"color": "red", // added
+				"color": "#f00", // added
+				"height": "60px", // added
+				"width": "100px", // added
+				"margin-left": "0px",
+				"margin-top": "0px",
 			},
 			"content": {
 				"text": "Happy Halloween",
 			},
 		},
-		{
-			"id": 2,
-			"type": "Img",
-			"outerStyle": {
-				"top": "200px",
-				"left": "130px",
-			},
-			"innerStyle": {
-			},
-			"content": {
-				"src": "https://www.w3schools.com/images/w3schools_green.jpg",
-				"alt": "fault",
-			},
-		},
+		// {
+		// 	"id": 2,
+		// 	"type": "Img",
+		// 	"outerStyle": {
+		// 		"top": "200px",
+		// 		"left": "130px",
+		// 	},
+		// 	"innerStyle": {
+		// 	},
+		// 	"content": {
+		// 		"src": "https://www.w3schools.com/images/w3schools_green.jpg",
+		// 		"alt": "fault",
+		// 	},
+		// },
 	]);
 
 	const [type, setType] = useState("Text");
@@ -70,13 +78,17 @@ function App() {
 		"background-color": "#e3b",
 		"width": "120px",
 		"height": "240px",
-		"padding-left": "20px",
 		"overflow-x": "hidden",
 		"overflow-y": "hidden",
 		// "visibility": "hidden",
 	});
 	const [innerStyle, setInnerStyle] = useState({
 		"margin": "0px", // added
+		"height": "60px", // added
+		"width": "100px", // added
+		"margin-left": "0px",
+		"margin-top": "0px",
+		"color": "#fff", // added
 	});
 	const [content, setContent] = useState({"text": "aaaa",});
 	const [idCnt, setIdCnt] = useState(3);
@@ -107,9 +119,9 @@ function App() {
 	}
 
 	const updateComponent = (id, props) => {
-		console.log("update component");
-		console.log('props: ', props);
-		console.log('components: ', components);
+		// console.log("update component");
+		// console.log('props: ', props);
+		// console.log('components: ', components);
 		for (const v of components) {
 			if (v.id == id) {
 				if (props.outerStyle !== undefined) v.outerStyle = props.outerStyle;
@@ -138,12 +150,12 @@ function App() {
 				}
 			})
 		}
-		console.log(
-			"\ntype:", type,
-			"\nouterStyle:", component.outerStyle,
-			"\ninnerStyle:", component.innerStyle,
-			"\ncontent:", component.content,
-		)
+		// console.log(
+		// 	"\ntype:", type,
+		// 	"\nouterStyle:", component.outerStyle,
+		// 	"\ninnerStyle:", component.innerStyle,
+		// 	"\ncontent:", component.content,
+		// )
 	}
 
 	function componentAttr(Attribute, x){
@@ -187,12 +199,12 @@ function App() {
 	}
 
 	useEffect(() => {
-		console.log("Current Id:", currentSelectedId);
-		console.log('components: ', components);
+		// console.log("Current Id:", currentSelectedId);
+		// console.log('components: ', components);
 		for (const v of components) {
 			if (v.id == currentSelectedId) {
-				console.log('v.type: ', v.type);
-				console.log("`${v.type}`:", `${v.type}`);
+				// console.log('v.type: ', v.type);
+				// console.log("`${v.type}`:", `${v.type}`);
 				setType(`${v.type}`);
 				setOuterStyle(v.outerStyle);
 				setInnerStyle(v.innerStyle);
@@ -202,9 +214,9 @@ function App() {
 		}
 	}, [currentSelectedId])
 
-	useEffect(() => {
-		console.log(components);
-	}, [components])
+	// useEffect(() => {
+	// 	console.log(components);
+	// }, [components])
 
 
   return (
