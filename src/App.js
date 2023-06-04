@@ -63,13 +63,15 @@ function App() {
 	const [type, setType] = useState("Text");
 	const [outerStyle, setOuterStyle] = useState({
 		"position": "absolute",
-		"top": "200px",
 		"left": "130px",
+		"top": "200px",
 		"background-color": "#e3b",
 		"width": "120px",
-		"height": "10px",
+		"height": "240px",
+		"padding-left": "20px",
 		"overflow-x": "hidden",
 		"overflow-y": "hidden",
+		// "visibility": "hidden",
 	});
 	const [innerStyle, setInnerStyle] = useState({
 		"margin": "0px", // added
@@ -77,6 +79,11 @@ function App() {
 	const [content, setContent] = useState({"text": "aaaa",});
 	const [idCnt, setIdCnt] = useState(3);
 	const [currentSelectedId, setCurrentSelectedId] = useState(null);
+
+	const [currentPoint, setCurrentPoint] = useState({
+		x: 0,
+		y: 0,
+	})
 
 	const createComponent = () => {
 		console.log(
@@ -98,6 +105,7 @@ function App() {
 	}
 
 	const updateComponent = (id, props) => {
+		console.log("update component");
 		console.log('props: ', props);
 		console.log('components: ', components);
 		for (const v of components) {
@@ -107,6 +115,33 @@ function App() {
 				if (props.content !== undefined) v.content = props.content;
 			}
 		}
+	}
+
+	const getComponentFromId = (id) => {
+		for (const v of components) {
+			if (v.id == id) {
+				return v;
+			}
+		}
+	}
+
+	const deleteComponent = (id) => {
+		const component = getComponentFromId(id);
+		if (component) {
+			setCurrentSelectedId(null);
+			updateComponent(id, {
+				outerStyle: {
+					...component.outerStyle,
+					"visibility": "hidden",
+				}
+			})
+		}
+		console.log(
+			"\ntype:", type,
+			"\nouterStyle:", component.outerStyle,
+			"\ninnerStyle:", component.innerStyle,
+			"\ncontent:", component.content,
+		)
 	}
 
 	function componentAttr(Attribute, x){
@@ -174,11 +209,6 @@ function App() {
     <React.Fragment>
 			<Context.Provider
 				value={{
-					// currMode: currMode,
-					// setCurrMode: setCurrMode,
-					// components: components,
-					// componentStyle: componentStyle,
-					// setComponentStyle: setComponentStyle,
 					createComponent: createComponent,
 					createHtml: createHtml,
 
@@ -196,11 +226,16 @@ function App() {
 					setCurrentSelectedId: setCurrentSelectedId,
 
 					updateComponent: updateComponent,
+					getComponentFromId: getComponentFromId,
+					currentPoint: currentPoint,
+					setCurrentPoint: setCurrentPoint,
+
+					deleteComponent: deleteComponent,
 				}}
 			>
-				<Routes>
-					<Route path='/test' element={HTML_text}/>
-				</Routes>
+				{/* <Routes>
+					<Route path='/test' element={HTML_text} exact="true"/>
+				</Routes> */}
 				<ControlPanel></ControlPanel>
 				<Workspace></Workspace>
 				<Viewer></Viewer>

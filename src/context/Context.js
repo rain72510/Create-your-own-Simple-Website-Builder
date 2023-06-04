@@ -1,11 +1,6 @@
 import { createContext } from "react";
 
 const Context = createContext({
-	// currMode: '',
-	// setCurrMode: () => {},
-	// components: [],
-	// componentStyle: {},
-	// setComponentStyle: () => {},
 	createComponent: () => {},
 	createHtml: () => {},
 	components: [],
@@ -21,6 +16,11 @@ const Context = createContext({
 	currentSelectedId: null,
 	setCurrentSelectedId: () => {},
 	updateComponent: () => {},
+	getComponentFromId: () => {},
+	currentPoint: () => {},
+	setCurrentPoint: () => {},
+
+	deleteComponent: () => {},
 });
 
 export default Context;
