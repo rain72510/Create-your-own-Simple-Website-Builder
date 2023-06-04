@@ -662,8 +662,8 @@ const ControlPanel = () => {
 					onClick={() => {
 						writeToFile();
 					}}
-				>Preview</Button>
-			</ButtonGroup>
+					>Preview</Button>
+				</ButtonGroup>
 			<OuterStyleInput/>
 			<InnerStyleInput/>
 			{customPanel}
