@@ -503,17 +503,6 @@ const ImgPanel = () => {
 				height: `${currentImgProp.height}px`,
 			})
 		}
-		// if (currentSelectedId) {
-		// 	console.log("Hereeeee!!!")
-		// 	updateComponent(currentSelectedId, {"content":
-		// 		{
-		// 			"src": currentImgProp.src,
-		// 			"alt": currentImgProp.alt,
-		// 			"user-drag": "none",
-		// 			"draggable": false,
-		// 		}
-		// 	});
-		// }
 	}, [currentImgProp])
 
 	return (

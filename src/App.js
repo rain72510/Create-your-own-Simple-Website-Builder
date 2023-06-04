@@ -33,23 +33,23 @@ function App() {
 				"top": "20px",
 				"left": "30px",
 				"background-color": "#f0f",
-				"height": "60px", // added
-				"width": "100px", // added
-				"overflow-x": "hidden", // added
-				"overflow-y": "hidden", // added
+				"height": "60px",
+				"width": "100px",
+				"overflow-x": "hidden",
+				"overflow-y": "hidden",
 			},
 			"innerStyle": {
 				"font-family": "'Courier New', Courier, monospace",
-				"margin": "0px", // added
-				"font-size": "14", // added
-				"color": "#f00", // added
-				"height": "60px", // added
-				"width": "100px", // added
+				"margin": "0px",
+				"font-size": "14",
+				"color": "#f00",
+				"height": "60px",
+				"width": "100px",
 				"margin-left": "0px",
 				"margin-top": "0px",
 			},
 			"content": {
-				"text": "Happy Halloween",
+				"text": "Nice PUI",
 			},
 		},
 		// {
@@ -118,12 +118,6 @@ function App() {
 	}, [currentPoint, previousPoint])
 
 	const createComponent = () => {
-		// console.log(
-		// 	"\ntype:", type,
-		// 	"\nouterStyle:", outerStyle,
-		// 	"\ninnerStyle:", innerStyle,
-		// 	"\ntextContent:", textContent,
-		// )
 		switch (type) {
 			case "Text":
 				setComponents([...components,
@@ -181,12 +175,6 @@ function App() {
 				}
 			})
 		}
-		// console.log(
-		// 	"\ntype:", type,
-		// 	"\nouterStyle:", component.outerStyle,
-		// 	"\ninnerStyle:", component.innerStyle,
-		// 	"\ncontent:", component.content,
-		// )
 	}
 
 	function componentAttr(Attribute, x){
