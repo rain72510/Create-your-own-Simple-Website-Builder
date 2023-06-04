@@ -37,8 +37,6 @@ function App() {
 				"width": "100px", // added
 				"overflow-x": "hidden", // added
 				"overflow-y": "hidden", // added
-				"padding-left": "10px",
-				"padding-top": "10px",
 			},
 			"innerStyle": {
 				"font-family": "'Courier New', Courier, monospace",
@@ -84,13 +82,14 @@ function App() {
 	});
 	const [innerStyle, setInnerStyle] = useState({
 		"margin": "0px", // added
-		"height": "60px", // added
-		"width": "100px", // added
+		"height": "150px", // added
+		"width": "300px", // added
 		"margin-left": "0px",
 		"margin-top": "0px",
 		"color": "#fff", // added
 	});
-	const [content, setContent] = useState({"text": "aaaa",});
+	const [textContent, setTextContent] = useState({"text": "aaaa",});
+	const [imgContent, setImgContent] = useState({});
 	const [idCnt, setIdCnt] = useState(3);
 	const [currentSelectedId, setCurrentSelectedId] = useState(null);
 
@@ -99,29 +98,59 @@ function App() {
 		y: 0,
 	})
 
+	const [previousPoint, setPreviousPoint] = useState({
+		x: 0,
+		y: 0,
+	})
+
+	const [delta, setDelta] = useState({
+		x: 0,
+		y: 0,
+	})
+
+	useEffect(() => {
+		setDelta({
+			x: currentPoint.x - previousPoint.x,
+			y: currentPoint.y - previousPoint.y,
+		})
+	}, [currentPoint, previousPoint])
+
 	const createComponent = () => {
-		console.log(
-			"\ntype:", type,
-			"\nouterStyle:", outerStyle,
-			"\ninnerStyle:", innerStyle,
-			"\ncontent:", content,
-		)
-		setComponents([...components,
-			{	
-				"id": idCnt,
-				"type": type,
-				"outerStyle": outerStyle,
-				"innerStyle": innerStyle,
-				"content": content,
-			}
-		]);
+		// console.log(
+		// 	"\ntype:", type,
+		// 	"\nouterStyle:", outerStyle,
+		// 	"\ninnerStyle:", innerStyle,
+		// 	"\ntextContent:", textContent,
+		// )
+		switch (type) {
+			case "Text":
+				setComponents([...components,
+					{	
+						"id": idCnt,
+						"type": type,
+						"outerStyle": outerStyle,
+						"innerStyle": innerStyle,
+						"content": textContent,
+					}
+				]);
+				break;
+			
+			case "Img":
+				setComponents([...components,
+					{	
+						"id": idCnt,
+						"type": type,
+						"outerStyle": outerStyle,
+						"innerStyle": innerStyle,
+						"content": imgContent,
+					}
+				]);
+				break;
+		}
 		setIdCnt(idCnt + 1);
 	}
 
 	const updateComponent = (id, props) => {
-		// console.log("update component");
-		// console.log('props: ', props);
-		// console.log('components: ', components);
 		for (const v of components) {
 			if (v.id == id) {
 				if (props.outerStyle !== undefined) v.outerStyle = props.outerStyle;
@@ -166,7 +195,7 @@ function App() {
 				}
 			}
 		}
-		console.log(Attribute);
+		// console.log(Attribute);
 	}
 
 	const createHtml = () => {
@@ -195,28 +224,31 @@ function App() {
 			HTML_text += "</div>"
 		}
 		HTML_text += "</body></html>";
-		console.log(HTML_text);
+		// console.log(HTML_text);
 	}
 
 	useEffect(() => {
-		// console.log("Current Id:", currentSelectedId);
-		// console.log('components: ', components);
 		for (const v of components) {
 			if (v.id == currentSelectedId) {
-				// console.log('v.type: ', v.type);
-				// console.log("`${v.type}`:", `${v.type}`);
+				switch (v.type) {
+					case "Text":
+						setTextContent(v.content);
+						break;
+					case "Img":
+						setImgContent(v.content);
+						break;
+				}
 				setType(`${v.type}`);
 				setOuterStyle(v.outerStyle);
 				setInnerStyle(v.innerStyle);
-				setContent(v.content);
 				break;
 			}
 		}
 	}, [currentSelectedId])
 
-	// useEffect(() => {
-	// 	console.log(components);
-	// }, [components])
+	useEffect(() => {
+		console.log('textContent:', textContent, 'imgContent: ', imgContent);
+	}, [textContent, imgContent])
 
 
   return (
@@ -234,15 +266,23 @@ function App() {
 					setOuterStyle: setOuterStyle,
 					innerStyle: innerStyle,
 					setInnerStyle: setInnerStyle,
-					content: content,
-					setContent: setContent,
+					textContent: textContent,
+					setTextContent: setTextContent,
+					imgContent: imgContent,
+					setImgContent: setImgContent,
+
 					currentSelectedId: currentSelectedId,
 					setCurrentSelectedId: setCurrentSelectedId,
 
 					updateComponent: updateComponent,
 					getComponentFromId: getComponentFromId,
+
 					currentPoint: currentPoint,
 					setCurrentPoint: setCurrentPoint,
+					previousPoint: previousPoint,
+					setPreviousPoint: setPreviousPoint,
+					delta: delta,
+					setDelta: setDelta,
 
 					deleteComponent: deleteComponent,
 				}}

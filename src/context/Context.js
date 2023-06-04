@@ -11,8 +11,12 @@ const Context = createContext({
 	setOuterStyle: () => {},
 	innerStyle: {},
 	setInnerStyle: () => {},
-	content: {},
-	setContent: () => {},
+	textContent: {},
+	setTextContent: () => {},
+	imgContent: {},
+	setImgContent: () => {},
+
+
 	currentSelectedId: null,
 	setCurrentSelectedId: () => {},
 	updateComponent: () => {},

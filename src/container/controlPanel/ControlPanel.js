@@ -206,24 +206,6 @@ const InnerStylePositionInput = () => {
 	} = useContext(Context);
 	return (
 		<div className="InnerStylePositionInput">
-			{/* <NumberInput name="InnerWidth" value={parseFloat(innerStyle.width)} onChange={(v) => {
-				const currInnerStyle = innerStyle;
-				setInnerStyle({...currInnerStyle, width: `${v}px`})
-				if (currentSelectedId) {
-					updateComponent(currentSelectedId, {"innerStyle": {
-						...currInnerStyle, width: `${v}px`,
-					}});
-				}
-			}}/>
-			<NumberInput name="Height" value={parseFloat(innerStyle.height)} onChange={(v) => {
-				const currInnerStyle = innerStyle;
-				setInnerStyle({...currInnerStyle, height: `${v}px`})
-				if (currentSelectedId) {
-					updateComponent(currentSelectedId, {"innerStyle": {
-						...currInnerStyle, height: `${v}px`,
-					}});
-				}
-			}}/> */}
 			<NumberInput name="MarginLeft" value={parseFloat(innerStyle["margin-left"])} onChange={(v) => {
 				const currInnerStyle = innerStyle;
 				setInnerStyle({...currInnerStyle, "margin-left": `${v}px`})
@@ -257,8 +239,8 @@ const InnerStyleInput = () => {
 
 const TextContent = () => {
 	const {
-		content,
-		setContent,
+		textContent,
+		setTextContent,
 		currentSelectedId,
 		updateComponent
 	} = useContext(Context);
@@ -266,10 +248,10 @@ const TextContent = () => {
 		<div>
 			<p>Text Content</p>
 			<textarea
-				value={content.text}
+				value={textContent.text}
 				onChange={(e) => {
-					setContent({
-						...content,
+					setTextContent({
+						...textContent,
 						"text": e.target.value,
 					});
 					if (currentSelectedId) {
@@ -279,7 +261,7 @@ const TextContent = () => {
 							}
 						});
 					}
-					console.log(e.target.value)
+					// console.log(e.target.value)
 				}}
 			/>
 		</div>
@@ -300,6 +282,11 @@ const ImgSearch = (props) => {
 	const [images, setImages] = useState((JSON.parse(localStorage.getItem("imgList")) || []));
 	const [imgList, setImgList] = useState([]);
 	const [numberPage, setNumberPage] = useState(0);
+
+	const {
+		innerStyle
+	} = useContext(Context);
+
 	const sendQuery = (e) => {
 		fetch(`https://api.unsplash.com/search/photos?query=${textInput}&page=${numberPage + 1}`, {
 			headers: {
@@ -311,12 +298,12 @@ const ImgSearch = (props) => {
 
 		})
 		.then(data => {
-			console.log(numberPage)
+			// console.log(numberPage)
 			if (numberPage > 0) {
-				console.log('images.results', images.results)
+				// console.log('images.results', images.results)
 				const curImagesResults = images.results.concat(data.results);
 				setImages({...images, "results": curImagesResults});
-				console.log('length', curImagesResults.length)
+				// console.log('length', curImagesResults.length)
 			}
 			else {
 				setImages(data);
@@ -331,8 +318,15 @@ const ImgSearch = (props) => {
 		// setImages(testImages);
 	}
 
+	const bestWidthHeight = (width, height, maxWidth, maxHeight) => {
+		const bestHeight = height * (maxWidth / width);
+		const bestWidth = width * (maxHeight / height);
+		if (bestHeight > maxHeight) return [bestWidth, maxHeight];
+		else return [maxWidth, bestHeight];
+	}
+
 	useEffect(() =>{
-		console.log(images);
+		// console.log(images);
 		setImgList((images.results || []).map((imgItem, k) => {
 			return (
 				<img
@@ -341,9 +335,19 @@ const ImgSearch = (props) => {
 					src={imgItem.urls.thumb}
 					alt={imgItem.description}
 					onClick={() => {
+						const [bestWidth, bestHeight] = bestWidthHeight(
+							imgItem.width,
+							imgItem.height,
+							parseFloat(innerStyle.width),
+							parseFloat(innerStyle.height),
+						)
+						if (!(bestWidth && bestHeight)) [bestWidth, bestHeight] = ["200px", "100px"]
+						// console.log("bestWidth:", bestWidth)
 						props.setCurrentImgProp({
 							src: imgItem.urls.thumb,
 							alt: imgItem.description,
+							width: bestWidth,
+							height: bestHeight,
 						})
 					}}
 				/>
@@ -397,18 +401,54 @@ const ImgSearch = (props) => {
 	)
 }
 
+const ImgSizeInput = () => {
+	const {
+		innerStyle,
+		setInnerStyle,
+		updateComponent,
+		currentSelectedId,
+	} = useContext(Context);
+	return (
+		<div>
+			<NumberInput name="Image Width" value={parseFloat(innerStyle.width)} onChange={(v) => {
+				const currInnerStyle = innerStyle;
+				setInnerStyle({...currInnerStyle, width: `${v}px`})
+				if (currentSelectedId) {
+					updateComponent(currentSelectedId, {"innerStyle": {
+						...currInnerStyle, width: `${v}px`,
+					}});
+				}
+			}}/>
+			<NumberInput name="Image Height" value={parseFloat(innerStyle.height)} onChange={(v) => {
+				const currInnerStyle = innerStyle;
+				setInnerStyle({...currInnerStyle, height: `${v}px`})
+				if (currentSelectedId) {
+					updateComponent(currentSelectedId, {"innerStyle": {
+						...currInnerStyle, height: `${v}px`,
+					}});
+				}
+			}}/>
+		</div>
+	)
+}
 
 const ImgPanel = () => {
 	const {
-		content,
-		setContent,
+		imgContent,
+		setImgContent,
 		currentSelectedId,
 		updateComponent,
+		innerStyle,
+		setInnerStyle,
+		outerStyle,
+		setOuterStyle,
 	} = useContext(Context)
 	const [showSearchOnUnsplash, setShowSearchOnUnsplash] = useState(false);
 	const [currentImgProp, setCurrentImgProp] = useState({
 		src: undefined,
 		alt: undefined,
+		width: undefined,
+		height: undefined,
 	});
 
 	const [currentImg, setCurrentImg] = useState(null)
@@ -417,27 +457,42 @@ const ImgPanel = () => {
 		setCurrentImg(
 			<img src={currentImgProp.src} alt={currentImgProp.alt} style={{maxWidth: "200px", maxHeight: "100px"}} draggable="false"/>
 		)
-		setContent({
-			...content,
+		setImgContent({
+			...imgContent,
 			"src": currentImgProp.src,
 			"alt": currentImgProp.alt,
 			"user-drag": "none",
 			"draggable": false,
 		});
-		if (currentSelectedId) {
-			updateComponent(currentSelectedId, {"content":
-				{
-					"src": currentImgProp.src,
-					"alt": currentImgProp.alt,
-					"user-drag": "none",
-					"draggable": false,
-				}
-			});
+		if (currentImgProp.width && currentImgProp.height) {
+			// console.log("Setting inner")
+			setInnerStyle({
+				...innerStyle,
+				width: `${currentImgProp.width}px`,
+				height: `${currentImgProp.height}px`,
+			})
+			setOuterStyle({
+				...outerStyle,
+				width: `${currentImgProp.width}px`,
+				height: `${currentImgProp.height}px`,
+			})
 		}
+		// if (currentSelectedId) {
+		// 	console.log("Hereeeee!!!")
+		// 	updateComponent(currentSelectedId, {"content":
+		// 		{
+		// 			"src": currentImgProp.src,
+		// 			"alt": currentImgProp.alt,
+		// 			"user-drag": "none",
+		// 			"draggable": false,
+		// 		}
+		// 	});
+		// }
 	}, [currentImgProp])
 
 	return (
 		<div>
+			<ImgSizeInput/>
 			<button
 				onClick={(e) => {
 					setShowSearchOnUnsplash(!showSearchOnUnsplash);
@@ -472,7 +527,10 @@ const ControlPanel = () => {
 		createHtml,
 		type,
 		setType,
+		// setCurrentSelectedId,
 		currentPoint,
+		previousPoint,
+		delta,
 		currentSelectedId,
 		deleteComponent,
 	} = useContext(Context);
@@ -510,7 +568,7 @@ const ControlPanel = () => {
 				setCustomPanel(<ImgPanel/>);
 				break;
 		}
-		console.log("type:", type)
+		// setCurrentSelectedId(null);
 	}, [type])
 
 	return (
@@ -568,9 +626,21 @@ const ControlPanel = () => {
 				Delete!
 			</Button>
 
-			<div className="showCoordinate">
-				<p>X: {currentPoint.x}</p>
-				<p>Y: {currentPoint.y}</p>
+			<div className="showCoordinate flexbox" style={{gap: "20px", width: "300px", justifyContent: "center"}}>
+				<div style={{display: "flex", flexDirection: "column"}}>
+					<p style={{margin: "0"}}> current:</p>
+					<p style={{margin: "0"}}> ({currentPoint.x}, {currentPoint.y})</p>
+				</div>
+				<div style={{display: "flex", flexDirection: "column"}}>
+					<p style={{margin: "0"}}> previous:</p>
+					<p style={{margin: "0"}}> ({previousPoint.x}, {previousPoint.y})</p>
+				</div>
+				<div style={{display: "flex", flexDirection: "column"}}>
+					<p style={{margin: "0"}}> distance:</p>
+					<p style={{margin: "0"}}> ({delta.x}, {delta.y})</p>
+				</div>
+				{/* <p>previous: ({previousPoint.x}, {previousPoint.y})</p>
+				<p>distance: ({delta.x}, {delta.y})</p> */}
 			</div>
 		</div>
 	)

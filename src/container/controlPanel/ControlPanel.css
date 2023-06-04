@@ -17,8 +17,14 @@
 	flex-wrap: wrap;
 }
 
+.flexbox {
+	display: flex;
+}
+
 .showCoordinate {
 	position: absolute;
 	top: 710px;
-	left: 30px;
+	left: 0px;
+	/* justify-content: space-between; */
 }
+
