@@ -15,7 +15,11 @@ const ComponentItem = (props) => {
 		currentSelectedId,
 	} = useContext(Context);
 
-	var outerStyle = (currentSelectedId === props.id?
+	console.log("currentSelectedId: ", currentSelectedId, " props.id: ", props.id);
+	console.log("currentSelectedId === props.id", currentSelectedId === props.id);
+	console.log("typeof(currentSelectedId), typeof(props.id):", typeof(currentSelectedId), typeof(props.id))
+
+	var outerStyle = (currentSelectedId == props.id?
 		{...props.outerStyle, "box-shadow": "5px 5px",}:
 		props.outerStyle
 	)
