@@ -1,7 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import Context from "../../context/Context";
 import Button from '@mui/material/Button';
-
+import IconButton from '@mui/material/IconButton';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import TextFieldsIcon from '@mui/icons-material/TextFields';
+import ImageIcon from '@mui/icons-material/Image';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 
 import ColorPicker from "./ColorPicker";
 
@@ -55,7 +59,7 @@ const ColorInput = (props) => {
 						height: "20px",
 					}}
 				/>
-				<Button
+				<Button variant = "contained"
 					onClick={(e) => setShowColorPicker(!showColorPicker)}
 					style={{
 						height: "25px",
@@ -511,48 +515,50 @@ const ControlPanel = () => {
 
 	return (
 		<div className="ControlPanel">
-			<Button
-				onClick={() => {
-					setType("Text");
-				}}
-			>
-				Text
-			</Button>
-			<Button
-				onClick={() => {
-					setType("Img");
-				}}
-			>
-				Image
-			</Button>
-			
-			<Button
-				onClick={() => {
-					writeToFile();
-				}}
-			>
-				writeToFile
-			</Button>
-			<Button
-				onClick={() => {
-					createHtml();
-				}}
-			>
-				HTML
-			</Button>
+			<ButtonGroup variant="contained" sx={{margin : "10px", color : "rgb(43, 62, 99)"}}>
+				<Button
+					onClick={() => {
+						setType("Text");
+					}}
+					startIcon={<TextFieldsIcon />}
+				>Text</Button>
 
+				<Button
+					onClick={() => {
+						setType("Img");
+					}}
+					startIcon={<ImageIcon />}
+				>Image</Button>
+			</ButtonGroup>
+
+			<ButtonGroup variant="contained" color="secondary" sx={{margin :"10px", paddingTop : "5px"}}>
+				<Button
+					onClick={() => {
+						writeToFile();
+					}}
+					startIcon={<FileUploadIcon />}
+				>Export</Button>
+
+				<Button
+					onClick={() => {
+						createHtml();
+					}}
+				>
+					HTML
+				</Button>
+			</ButtonGroup>
 			<OuterStyleInput/>
 			<InnerStyleInput/>
 			{customPanel}
 
-			<Button
+			<Button variant = "contained"
 				onClick={() => {
 					createComponent();
 				}}
 			>
 				Create!
 			</Button>
-			<Button
+			<Button variant = "contained"
 				onClick={() => {
 					if (currentSelectedId !== 'bg') {
 						deleteComponent(currentSelectedId);

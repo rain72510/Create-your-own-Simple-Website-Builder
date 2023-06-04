@@ -2,6 +2,8 @@
 
 ## 安裝了的東西
 node v16.20.0
+@mui/material @emotion/react @emotion/styled
+@mui/icons-material
 其他可看 ./package.json
 
 ## 架構
@@ -27,3 +29,6 @@ node v16.20.0
 - 規劃 api 要傳什麼
 - 將 control panel 做得更完善
 - UI 美化、視覺化
+
+## Theme color
+- rgb(43, 62, 99)
