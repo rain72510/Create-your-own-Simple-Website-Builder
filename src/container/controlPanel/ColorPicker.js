@@ -15,7 +15,6 @@ const ColorPicker = (props) => {
 				marginLeft: "20px", position: "absolute",
 				top: props.position.top, left: props.position.left
 			}}
-			
 		>
 			<SketchPicker
 				color={props.color}

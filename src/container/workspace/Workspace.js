@@ -7,7 +7,7 @@ import Img from "../../component/Img";
 
 import "./Workspace.css";
 
-const workspaceX = 300;
+const workspaceX = 320;
 const workspaceY = 50;
 
 const ComponentItem = (props) => {
@@ -15,7 +15,7 @@ const ComponentItem = (props) => {
 		currentSelectedId,
 	} = useContext(Context);
 
-	var outerStyle = (currentSelectedId == props.id?
+	var outerStyle = (currentSelectedId === props.id?
 		{...props.outerStyle, "box-shadow": "5px 5px",}:
 		props.outerStyle
 	)

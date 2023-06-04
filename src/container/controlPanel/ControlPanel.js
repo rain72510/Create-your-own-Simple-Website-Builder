@@ -18,17 +18,19 @@ const ACCESS_KEY="9ZM61M-0xPrLVshNpTEQpvm2ekEgqkP1avxAsD3xCTA";
 const NumberInput = (props) => {
 	return (
 		<div>
-			<p>{props.name}</p>
-			<input
+			<p style={{paddingLeft: "3px", width: "auto", fontSize: "18px", color: "rgb(43, 62, 99)"}}>{props.name}</p>
+			<TextField
 				type="number"
 				value={props.value}
+				size={"small"}
 				onChange={(e) => {props.onChange(e.target.value)}}
 				style={{
-					width: "50px",
-					height: "20px",
-				}}
-			>
-			</input>
+					backgroundColor: "white",
+					width: "60px",
+					height: "auto",
+					position: "static",
+					marginRight: "10px"
+				}}/>
 		</div>
 	)
 }
@@ -42,10 +44,11 @@ const ColorInput = (props) => {
 
 	console.log("color in ColorInput: ", color);
 	return (
-		<div>
-			<p>{props.name}</p>
+		<div style={{ marginTop: "15px"}}>
+			<p style={{paddingLeft: "3px", width: "auto", fontSize: "18px", color: "rgb(43, 62, 99)"}}>{props.name}</p>
 			<div style={{display: "flex", flexDirection: "row"}}>
-				<input
+				<TextField
+					size={"small"}
 					type="text"
 					value={
 						color[0] === "#"?
@@ -56,8 +59,11 @@ const ColorInput = (props) => {
 					onChange={(e) => {setColor(e.target.value)}}
 					placeholder="#"
 					style={{
-						width: "70px",
-						height: "20px",
+						backgroundColor: "white",
+						width: "150px",
+						height: "auto",
+						position: "static",
+						marginRight: "10px"
 					}}
 				/>
 				<Button variant = "contained"
@@ -99,7 +105,7 @@ const OuterStylePositionInput = () => {
 	} = useContext(Context);
 	return (
 		<div className="OuterStylePositionInput">
-			<TextField name="Width" value={parseFloat(outerStyle.width)} size="small" onChange={(v) => {
+			<NumberInput name="Width" value={parseFloat(outerStyle.width)} size="small" onChange={(v) => {
 				const currOuterStyle = outerStyle;
 				setOuterStyle({...currOuterStyle, width: `${v}px`})
 				if (currentSelectedId) {
@@ -232,7 +238,7 @@ const InnerStylePositionInput = () => {
 		updateComponent,
 	} = useContext(Context);
 	return (
-		<div className="InnerStylePositionInput">
+		<div className="InnerStylePositionInput" style={{display: "flex", flexDirection: "row", gap: "50px"}}>
 			<NumberInput name="MarginLeft" value={parseFloat(innerStyle["margin-left"])} onChange={(v) => {
 				const currInnerStyle = innerStyle;
 				setInnerStyle({...currInnerStyle, "margin-left": `${v}px`})
@@ -273,9 +279,16 @@ const TextContent = () => {
 	} = useContext(Context);
 	return (
 		<div>
-			<p>Text Content</p>
+			<p style={{paddingLeft: "3px", width: "auto", fontSize: "18px", color: "rgb(43, 62, 99)"}}>Text Content</p>
 			<textarea
 				value={textContent.text}
+				style={{
+					backgroundColor: "white",
+					width: "150px",
+					height: "100px",
+					position: "static",
+					marginRight: "10px"
+				}}
 				onChange={(e) => {
 					setTextContent({
 						...textContent,
@@ -385,8 +398,8 @@ const ImgSearch = (props) => {
 	}, [images]);
 
 	return (
-		<div style={{zIndex: 10}}>
-			<div className="flexbox" style={{alignItems: "stretch"}}>
+		<div style={{zIndex: 10, alignContent: "center", height: "300px"}}>
+			<div className="flexbox" style={{padding: "5px"}}>
 				<input 
 					className='textSearch'
 					value={textInput}
@@ -396,7 +409,7 @@ const ImgSearch = (props) => {
 					placeholder='Search for pictures.'
 					/>
 			</div>
-			<div className="flexbox" style={{alignItems: "stretch"}}>
+			<div className="flexbox" style={{padding: "5px"}}>
 				<button
 					className='textSearchButton'
 					onClick={(e) => {
@@ -410,19 +423,25 @@ const ImgSearch = (props) => {
 			{imgList.length === 0? 
 				<p>No Results</p>
 				:
-				<div className='searchResult flexbox'>
-					<div>
+				<div className='searchResult flexbox' style={{alignItems: "stretch"}}>
+					<div style={{alignItems: "stretch"}}>
 						{imgList}
 					</div>
-					<button
-						className='textSearchButton'
-						onClick={(e) => {
-							sendQuery(e);
-							setNumberPage(numberPage + 1);
-						}}
-					>
-						Diplay More
-					</button>
+					<div>
+						<Button
+							sx={{
+								position:"static",
+								marginLeft:"10px"
+							}}
+							className='textSearchButton'
+							onClick={(e) => {
+								sendQuery(e);
+								setNumberPage(numberPage + 1);
+							}}
+						>
+							Display More
+						</Button>
+					</div>
 				</div>
 			}
 		</div>
@@ -437,7 +456,7 @@ const ImgSizeInput = () => {
 		currentSelectedId,
 	} = useContext(Context);
 	return (
-		<div>
+		<div style={{display: "flex", flexDirection: "row", gap: "30px"}}>
 			<NumberInput name="Image Width" value={parseFloat(innerStyle.width)} onChange={(v) => {
 				const currInnerStyle = innerStyle;
 				setInnerStyle({...currInnerStyle, width: `${v}px`})
@@ -508,20 +527,27 @@ const ImgPanel = () => {
 	return (
 		<div>
 			<ImgSizeInput/>
-			<button
+			<Button
+				sx = {{backgroundColor : "#53acff", marginTop : "10px", color: "rgb(43, 62, 99)", marginBottom: "5px", ":hover": {
+				bgcolor: "rgb(43, 62, 99)",
+				color: "white",
+					marginBottom: "5px",
+					position: "static"
+				}}}
+				variant="outlined"
 				onClick={(e) => {
 					setShowSearchOnUnsplash(!showSearchOnUnsplash);
 				}}
 			>
 				Search On Unsplash!
-			</button>
+			</Button>
 			{
 				showSearchOnUnsplash
 				&&
 				<div
 					style={{
-						width: "270px",
-						height: "200px",
+						width: "280px",
+						height: "300px",
 						overflowY: "scroll",
 					}}
 				>
@@ -529,7 +555,7 @@ const ImgPanel = () => {
 				</div>
 			}
 			<div>
-				<p>current image: </p>
+				<p style={{paddingLeft: "3px", width: "auto", fontSize: "18px", color: "rgb(43, 62, 99)"}}>current image: </p>
 				{currentImg}
 			</div>
 		</div>
@@ -638,15 +664,15 @@ const ControlPanel = () => {
 			<OuterStyleInput/>
 			<InnerStyleInput/>
 			{customPanel}
-			<ButtonGroup>
+			<ButtonGroup >
 			<Button
 				variant = "contained"
 				onClick={() => {
 					createComponent();
 				}}
-				sx = {{backgroundColor: "rgb(43, 62, 99)",marginTop : "10px"}}
+				sx = {{backgroundColor: "rgb(43, 62, 99)", marginTop : "10px"}}
 			>
-				Create!
+				Create
 			</Button>
 			<Button
 				variant = "contained"
@@ -656,26 +682,26 @@ const ControlPanel = () => {
 					}
 				}}
 				sx = {{backgroundColor : '#ac0000', marginTop : "10px", ":hover": {
-					bgcolor: "#ef3c3c",
+					bgcolor: "#d30000",
 					color: "white"
-				  }}}
+					}}}
 			>
-				Delete!
+				Delete
 			</Button>
 			</ButtonGroup>
 
-			<div className="showCoordinate flexbox" style={{gap: "20px", width: "300px", justifyContent: "center"}}>
+			<div className="showCoordinate flexbox" style={{position: "static", gap: "20px", width: "300px", justifyContent: "start"}}>
 				<div style={{display: "flex", flexDirection: "column"}}>
-					<p style={{margin: "0"}}> current:</p>
-					<p style={{margin: "0"}}> ({currentPoint.x}, {currentPoint.y})</p>
+					<p style={{margin: "0", color: "rgb(43, 62, 99)"}}> current:</p>
+					<p style={{margin: "0", color: "rgb(43, 62, 99)"}}> ({currentPoint.x}, {currentPoint.y})</p>
 				</div>
 				<div style={{display: "flex", flexDirection: "column"}}>
-					<p style={{margin: "0"}}> previous:</p>
-					<p style={{margin: "0"}}> ({previousPoint.x}, {previousPoint.y})</p>
+					<p style={{margin: "0", color: "rgb(43, 62, 99)"}}> previous:</p>
+					<p style={{margin: "0", color: "rgb(43, 62, 99)"}}> ({previousPoint.x}, {previousPoint.y})</p>
 				</div>
 				<div style={{display: "flex", flexDirection: "column"}}>
-					<p style={{margin: "0"}}> distance:</p>
-					<p style={{margin: "0"}}> ({delta.x}, {delta.y})</p>
+					<p style={{margin: "0", color: "rgb(43, 62, 99)"}}> distance:</p>
+					<p style={{margin: "0", color: "rgb(43, 62, 99)"}}> ({delta.x}, {delta.y})</p>
 				</div>
 				{/* <p>previous: ({previousPoint.x}, {previousPoint.y})</p>
 				<p>distance: ({delta.x}, {delta.y})</p> */}

@@ -33,18 +33,18 @@ function App() {
 				"top": "20px",
 				"left": "30px",
 				"background-color": "#f0f",
-				"height": "60px",
-				"width": "100px",
-				"overflow-x": "hidden",
-				"overflow-y": "hidden",
+				"height": "60px", // added
+				"width": "100px", // added
+				"overflow-x": "hidden", // added
+				"overflow-y": "hidden", // added
 			},
 			"innerStyle": {
 				"font-family": "'Courier New', Courier, monospace",
-				"margin": "0px",
-				"font-size": "14",
-				"color": "#f00",
-				"height": "60px",
-				"width": "100px",
+				"margin": "0px", // added
+				"font-size": "14", // added
+				"color": "#f00", // added
+				"height": "60px", // added
+				"width": "100px", // added
 				"margin-left": "0px",
 				"margin-top": "0px",
 			},

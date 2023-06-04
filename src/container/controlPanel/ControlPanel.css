@@ -10,7 +10,7 @@
   
   border-right: 1px solid rgb(170, 170, 170);
   background-color: rgb(219, 221, 228);
-  width: 300px;
+  width: 320px;
   height: fit-content;
   user-select: none;
 }
@@ -20,8 +20,11 @@
 	flex-wrap: wrap;
 }
 
-.flexbox {
-	display: flex;
+p {
+  padding-left: "3px";
+  width: "auto";
+  font-size: "18px";
+  color: "rgb(43, 62, 99)";
 }
 
 .showCoordinate {
