@@ -1,0 +1,16 @@
+.Header {
+    position: absolute;
+    justify-content: center;
+	align-items: center;
+    height: 50px;
+    width: 100vw;
+    background-color: rgb(43, 62, 99);
+}
+.Header p {
+    position: relative;
+    top: -23px;
+    font-family: sans-serif;
+    color: aliceblue;
+    text-align: center;
+    font-size: 22pt;
+}

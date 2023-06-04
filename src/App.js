@@ -1,6 +1,7 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import { Route, Routes } from "react-router-dom";
+import Button from '@mui/material/Button';
 
 
 // context
@@ -10,6 +11,7 @@ import Context from './context/Context';
 import ControlPanel from './container/controlPanel/ControlPanel';
 import Workspace from './container/workspace/Workspace';
 import Viewer from './container/viewer/Viewer';
+import Header from './container/header/Header';
 
 // component
 import Text from './component/Text';
@@ -288,6 +290,7 @@ function App() {
 				{/* <Routes>
 					<Route path='/test' element={HTML_text} exact="true"/>
 				</Routes> */}
+				<Header></Header>
 				<ControlPanel></ControlPanel>
 				<Workspace></Workspace>
 				<Viewer></Viewer>

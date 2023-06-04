@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Context from "../../context/Context";
+import Button from '@mui/material/Button';
+
 
 import ColorPicker from "./ColorPicker";
 
@@ -53,7 +55,7 @@ const ColorInput = (props) => {
 						height: "20px",
 					}}
 				/>
-				<button
+				<Button
 					onClick={(e) => setShowColorPicker(!showColorPicker)}
 					style={{
 						height: "25px",
@@ -64,7 +66,7 @@ const ColorInput = (props) => {
 						cursor: "pointer",
 					}}
 				>
-				</button>
+				</Button>
 				{
 					showColorPicker
 					&&
@@ -567,48 +569,48 @@ const ControlPanel = () => {
 
 	return (
 		<div className="ControlPanel">
-			<button
+			<Button
 				onClick={() => {
 					setType("Text");
 				}}
 			>
 				Text
-			</button>
-			<button
+			</Button>
+			<Button
 				onClick={() => {
 					setType("Img");
 				}}
 			>
 				Image
-			</button>
+			</Button>
 			
-			<button
+			<Button
 				onClick={() => {
 					writeToFile();
 				}}
 			>
 				writeToFile
-			</button>
-			<button
+			</Button>
+			<Button
 				onClick={() => {
 					createHtml();
 				}}
 			>
 				HTML
-			</button>
+			</Button>
 
 			<OuterStyleInput/>
 			<InnerStyleInput/>
 			{customPanel}
 
-			<button
+			<Button
 				onClick={() => {
 					createComponent();
 				}}
 			>
 				Create!
-			</button>
-			<button
+			</Button>
+			<Button
 				onClick={() => {
 					if (currentSelectedId !== 'bg') {
 						deleteComponent(currentSelectedId);
@@ -616,7 +618,7 @@ const ControlPanel = () => {
 				}}
 			>
 				Delete!
-			</button>
+			</Button>
 
 			<div className="showCoordinate flexbox" style={{gap: "20px", width: "300px", justifyContent: "center"}}>
 				<div style={{display: "flex", flexDirection: "column"}}>
