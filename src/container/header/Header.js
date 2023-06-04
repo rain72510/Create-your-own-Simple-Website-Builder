@@ -9,7 +9,7 @@ import "./Header.css"
 
 const Header = () => {
     return (
-        <AppBar position="static" style={{ background: 'rgb(43, 62, 99)' }}>
+        <AppBar position="static" style={{width: "auto", background: 'rgb(43, 62, 99)' }}>
             <Toolbar variant="dense">
                 <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
                 <MenuIcon />
