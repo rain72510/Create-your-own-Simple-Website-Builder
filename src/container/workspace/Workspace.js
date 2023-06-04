@@ -6,8 +6,8 @@ import Text from "../../component/Text";
 
 import "./Workspace.css";
 
-const workspaceX = 310;
-const workspaceY = 10;
+const workspaceX = 300;
+const workspaceY = 50;
 
 const ComponentItem = (props) => {
 	const {
