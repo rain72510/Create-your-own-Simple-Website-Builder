@@ -21,10 +21,10 @@ const fs = require('fs');
 
 function App() {
 
-	const [htmlFileCount, setHtmlFileCount] = useState(12);
+	const [htmlFileCount, setHtmlFileCount] = useState(42);
 	const [HTMLText, setHTMLText] = useState("");
 	
-	const [components, setComponents] = useState([
+	const [components, setComponents] = useState(JSON.parse(localStorage.getItem("currComponents")) || [
 		{	
 			"id": 1,
 			"type": "Text",
@@ -32,7 +32,7 @@ function App() {
 				"position": "absolute",
 				"top": "20px",
 				"left": "30px",
-				"background-color": "#032812",
+				"background-color": "#e3b",
 				"height": "60px", // added
 				"width": "100px", // added
 				"overflow-x": "hidden", // added
@@ -42,7 +42,7 @@ function App() {
 				"font-family": "'Courier New', Courier, monospace",
 				"margin": "0px", // added
 				"font-size": "14", // added
-				"color": "#f00", // added
+				"color": "#000", // added
 				"height": "60px", // added
 				"width": "100px", // added
 				"margin-left": "0px",

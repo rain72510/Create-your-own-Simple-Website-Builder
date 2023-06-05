@@ -455,6 +455,8 @@ const ImgSizeInput = () => {
 	const {
 		innerStyle,
 		setInnerStyle,
+		outerStyle,
+		setOuterStyle,
 		updateComponent,
 		currentSelectedId,
 	} = useContext(Context);
@@ -462,19 +464,29 @@ const ImgSizeInput = () => {
 		<div style={{display: "flex", flexDirection: "row", gap: "30px"}}>
 			<NumberInput name="Image Width" value={parseFloat(innerStyle.width)} onChange={(v) => {
 				const currInnerStyle = innerStyle;
+				const currOuterStyle = outerStyle;
 				setInnerStyle({...currInnerStyle, width: `${v}px`})
+				setOuterStyle({...currOuterStyle, width: `${v}px`})
 				if (currentSelectedId) {
 					updateComponent(currentSelectedId, {"innerStyle": {
 						...currInnerStyle, width: `${v}px`,
+					}});
+					updateComponent(currentSelectedId, {"outerStyle": {
+						...currOuterStyle, width: `${v}px`,
 					}});
 				}
 			}}/>
 			<NumberInput name="Image Height" value={parseFloat(innerStyle.height)} onChange={(v) => {
 				const currInnerStyle = innerStyle;
+				const currOuterStyle = outerStyle;
 				setInnerStyle({...currInnerStyle, height: `${v}px`})
+				setOuterStyle({...currOuterStyle, height: `${v}px`})
 				if (currentSelectedId) {
 					updateComponent(currentSelectedId, {"innerStyle": {
 						...currInnerStyle, height: `${v}px`,
+					}});
+					updateComponent(currentSelectedId, {"outerStyle": {
+						...currOuterStyle, height: `${v}px`,
 					}});
 				}
 			}}/>
@@ -580,6 +592,7 @@ const ControlPanel = () => {
 		HTMLText,
 		htmlFileCount,
 		setHtmlFileCount,
+		components,
 	} = useContext(Context);
 
 	const writeToFile = () => {
@@ -660,6 +673,7 @@ const ControlPanel = () => {
 						color: "white"
 					  }}}
 					onClick={() => {
+						localStorage.setItem("currComponents", JSON.stringify(components));
 						writeToFile();
 					}}
 					>Preview</Button>
