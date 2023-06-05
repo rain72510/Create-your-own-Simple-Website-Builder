@@ -32,7 +32,7 @@ function App() {
 				"position": "absolute",
 				"top": "20px",
 				"left": "30px",
-				"background-color": "rgb(43, 62, 99)",
+				"background-color": "#032812",
 				"height": "60px", // added
 				"width": "100px", // added
 				"overflow-x": "hidden", // added
@@ -219,8 +219,12 @@ function App() {
 	}
 
 	useEffect(() => {
+		console.log('outerStyle pre: ', outerStyle);
 		for (const v of components) {
+			console.log('v: ', v);
+			console.log('currentSelectedId: ', currentSelectedId);
 			if (v.id == currentSelectedId) {
+				console.log("here!")
 				switch (v.type) {
 					case "Text":
 						setTextContent(v.content);
@@ -231,12 +235,11 @@ function App() {
 				}
 				setType(`${v.type}`);
 				setOuterStyle(v.outerStyle);
-				console.log(v.innerStyle);
 				setInnerStyle(v.innerStyle);
 				break;
 			}
 		}
-		console.log('innerStyle: ', innerStyle);
+		console.log('outerStyle fin: ', outerStyle);
 	}, [currentSelectedId])
 
 	useEffect(() => {

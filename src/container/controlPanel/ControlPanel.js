@@ -162,7 +162,7 @@ const BackgroundColorInput = () => {
 				value={outerStyle["background-color"]}
 				onChange={(v) => {
 					const currOuterStyle = outerStyle;
-					setOuterStyle({...currOuterStyle, "background-color": `${v}`})
+					setOuterStyle({...currOuterStyle, "background-color": `${v}`});
 					if (currentSelectedId) {
 						updateComponent(currentSelectedId, {"outerStyle": {
 							...currOuterStyle, "background-color": `${v}`,
