@@ -21,7 +21,7 @@ const fs = require('fs');
 
 function App() {
 
-	const [htmlFileCount, setHtmlFileCount] = useState(42);
+	const [htmlFileCount, setHtmlFileCount] = useState(1);
 	const [HTMLText, setHTMLText] = useState("");
 	
 	const [components, setComponents] = useState(JSON.parse(localStorage.getItem("currComponents")) || [
